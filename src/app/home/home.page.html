@@ -1,9 +1,11 @@
-<ion-header>
+<ion-header class="most-used-header">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button auto-hide="false"></ion-menu-button>     
+      <ion-menu-button auto-hide="false" slot="start"><img class="logo-main" src="../../assets/images/menu-icon.png"></ion-menu-button>     
     </ion-buttons>
-    <ion-title>home</ion-title>
+    <ion-img src="../../assets/images/apron_final_logo.png">home</ion-img>
+    <ion-button slot="end"><ion-icon name="search-outline"></ion-icon></ion-button>
+    <ion-button slot="end" class="cart-btn"><img src="../../assets/images/cart-icon1.png"><span class="cart-item-no">5</span></ion-button>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -15,8 +17,10 @@
       <ion-img src="https://apronbutchery.co.za/wp-content/uploads/2020/03/4886.jpg"></ion-img>
     </ion-slide>
   </ion-slides>
-  <ion-list>
-    <ion-list-header>Most Popular</ion-list-header>
+  <ion-list class="mst-popular-pro">
+    <div class="title-main">
+      <h2>Most Popular</h2>
+    </div>
     <ion-item lines="none">
       <ion-slides pager="false" [options]="optionsPopularProductsSlider" *ngIf="allPopularProducts.length > 0">
         <ion-slide *ngFor="let popularProduct of allPopularProducts; let p = index;">
@@ -38,8 +42,10 @@
       </ion-slides>
     </ion-item>
   </ion-list>
-  <ion-list>
-    <ion-list-header>Categories</ion-list-header>
+  <ion-list class="categories">
+    <div class="title-main">
+      <h2>Categories</h2>
+    </div>
     <ion-item lines="none" *ngFor="let categories of categoryMain; let c = index;">
       <ion-grid>
         <ion-row>

@@ -1,0 +1,32 @@
+ion-header {
+	ion-toolbar {}
+}
+ion-content {
+	--background: transparent;
+	ion-slides {
+		ion-slide {
+			ion-img {
+				max-width: 100%;
+				width: 100%;
+				height: 144px;
+				object-fit: cover;
+				object-position: center;
+			}
+		}
+	}
+	ion-list {
+		&.mst-popular-pro {
+			ion-item {
+				ion-slides {
+					ion-slide {
+						ion-grid {
+							ion-row {
+								ion-col {}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

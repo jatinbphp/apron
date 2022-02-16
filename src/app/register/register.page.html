@@ -1,36 +1,40 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>Register</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
-  <ion-img src="../../assets/images/no-image.png"></ion-img>
-  <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)">
-    <ion-list lines="none"> 
-      <ion-item no-line color="light">
-        <ion-input type="email" placeholder="EMAIL ADDRESS" formControlName="email"></ion-input>
-      </ion-item>  
-      <ion-item no-line color="light">
-        <ion-input type="text" placeholder="USER NAME" formControlName="username"></ion-input>
-      </ion-item>
-      <ion-item no-line color="light">
-        <ion-input [type]="passwordType" placeholder="PASSWORD" formControlName="password"></ion-input>
-        <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
-      </ion-item>   
-      <ion-item no-line color="light">
-        <ion-input [type]="ConfirmPasswordType" placeholder="CONFIRM PASSWORD" formControlName="cpassword"></ion-input>
-        <ion-icon item-end [name]="ConfirmPasswordIcon" class="passwordIcon" (click)='hideShowConfirmPassword()'></ion-icon>
-      </ion-item>
-      <ion-item>
-        <ion-router-link href="https://apronbutchery.co.za/privacy-policy/" target="_blank">I agree to the T's & C's</ion-router-link>
-        <ion-checkbox color="danger" [(ngModel)]="accept_tems" slot="start" formControlName="accept_tems"></ion-checkbox>
-      </ion-item>
-      <ion-item>
-          <ion-router-link href="https://apronbutchery.co.za/privacy-policy/" target="_blank">Please review terms and conditions</ion-router-link>
-      </ion-item>
-    </ion-list>
-    <ion-button type="submit" color="danger" expand="block" [disabled]="(!registerForm.valid) || accept_tems==false">Register</ion-button>
-  </form>
-  <ion-router-link routerDirection="root" routerLink="/login">LOGIN</ion-router-link>
+  <div class="main-div">
+    <img class="logo-main" src="../../assets/images/no-image.png">
+    <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)">
+      <ion-list lines="none"> 
+        <ion-item no-line color="light">
+          <ion-input type="email" placeholder="EMAIL ADDRESS" formControlName="email"></ion-input>
+        </ion-item>  
+        <ion-item no-line color="light">
+          <ion-input type="text" placeholder="USER NAME" formControlName="username"></ion-input>
+        </ion-item>
+        <ion-item no-line color="light">
+          <ion-input [type]="passwordType" placeholder="PASSWORD" formControlName="password"></ion-input>
+          <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+        </ion-item>   
+        <ion-item no-line color="light">
+          <ion-input [type]="ConfirmPasswordType" placeholder="CONFIRM PASSWORD" formControlName="cpassword"></ion-input>
+          <ion-icon item-end [name]="ConfirmPasswordIcon" class="passwordIcon" (click)='hideShowConfirmPassword()'></ion-icon>
+        </ion-item>
+        <ion-item class="mt-12">
+          <ion-router-link href="https://apronbutchery.co.za/privacy-policy/" target="_blank">I agree to the T's & C's</ion-router-link>
+          <ion-checkbox [(ngModel)]="accept_tems" slot="start" formControlName="accept_tems"></ion-checkbox>
+        </ion-item>
+        <ion-item lines="none" class="ion-text-center">
+            <ion-router-link href="https://apronbutchery.co.za/privacy-policy/" target="_blank">Please review terms and conditions</ion-router-link>
+        </ion-item>
+      </ion-list>
+      <ion-button type="submit" color="danger" expand="block" [disabled]="(!registerForm.valid) || accept_tems==false">Register</ion-button>
+    </form>
+    <ion-item lines="none" class="link-item">
+      <ion-router-link routerDirection="root" routerLink="/login"><strong>LOGIN</strong></ion-router-link>
+    </ion-item>
+  </div>
 </ion-content>
