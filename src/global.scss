@@ -33,6 +33,7 @@
 }
 
 :root {
+    --font-SegoeUI:'SegoeUI' ;
     --font-Roboto-Regular:'Roboto-Regular' ;
     --font-Roboto-Italic:'Roboto-Italic' ;
     --font-Roboto-Medium:'Roboto-Medium' ;
@@ -133,7 +134,7 @@ app-login, app-register {
     background-color: #fff;
 }
 
-app-home {
+app-home, app-categories {
     background-image: url(assets/images/texture-bck1.png);
     background-position: center center;
     background-size: cover;
@@ -178,9 +179,20 @@ ion-header {
                 margin: 0px 0px 0px 10px;
             }
             ion-title {
+                width: fit-content;
+                width: -webkit-fit-content;
+                width: -moz-fit-content;
+                width: -ms-fit-content;
+                width: -o-fit-content;
+                position: unset;
+                padding: 0px 10px;
+                margin: 0px;
                 font-size: 20px;
                 line-height: normal;
                 color: var(--Black);
+                font-family: var(--font-SegoeUI);
+                font-weight: normal;
+                --border: 0px;
             }
             ion-button {
                 --background: transparent;
@@ -255,7 +267,7 @@ ion-header {
         font-family: var(--font-Roboto-Bold);
         position: relative;
         padding: 0px 0px 10px;
-        margin: 0px 0px 10px;
+        margin: 0px 0px 14px;
         &::after {
             content: '';
             position: absolute;

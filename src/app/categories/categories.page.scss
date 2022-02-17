@@ -1,0 +1,126 @@
+ion-header {
+	ion-toolbar {}
+}
+ion-content {
+	--background: transparent;
+	.category-list-slider {
+		width: 100%;
+		padding: 15px 0px 10px 25px;
+		ion-slides {
+			ion-slide {
+				ion-grid {
+				    width: 100%;
+				    padding: 0px;
+				    margin: 0px 10px 0px 0px;
+				    background-color: var(--Black);
+				    border: 1px solid #fff;
+    				border-radius: 0px 0px 9px 9px;
+    				&.active-category {
+    					border-color: #D12031;
+    				}
+					ion-row {
+						ion-col {
+							ion-img {
+								max-width: 100%;
+								width: 100%;
+								height: 54px;
+								max-height: 100%;
+								object-fit: cover;
+								object-position: center;
+								background-color: #fff;
+							}
+							h4 {
+								width: 96%;
+								text-align: center;
+								color: var(--White);
+								font-size: 12px;
+								line-height: 14px;
+								font-family: var(--font-Roboto-Regular);
+								margin: 8px auto;
+    							padding: 0px;
+    							min-height: 42px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	ion-list {
+		width: 100%;
+		padding: 10px 25px 25px;
+		ion-item {
+			ion-grid {
+				ion-row {
+					ion-col {
+						ion-grid {
+							ion-row {
+								&.pro-vertical-box {
+									width: 92%;
+									margin-bottom: 26px;
+									padding: 10px 0px 0px;
+									ion-col {
+										ion-img {
+											max-width: 100%;
+										    width: calc(100% - 20px);
+										    height: 85px;
+										    object-fit: cover;
+										    object-position: center;
+										    margin: 0px auto;
+										}
+										.pro-nm {
+											width: calc(100% - 20px);
+											margin: 16px auto 10px;
+											min-height: 30px;
+										}
+										.pro-price {
+											width: calc(100% - 20px);
+											margin: 0px auto 14px;
+											min-height: unset;
+										}
+										ion-button {
+											&.cart-icon-btn {}
+										}
+									}
+								}
+							}
+						}
+						&:nth-child(odd) .pro-vertical-box {
+							margin-right: auto;
+						}
+						&:nth-child(even) .pro-vertical-box {
+							margin-left: auto;
+						}
+					}
+				}
+			}
+		}
+		.btn-sec {
+			width: 100%;
+		    text-align: center;
+		    padding: 10px 0px 20px;
+		    margin: 0px;
+			ion-button {
+				&.load-mre {
+					width: 100%;
+	                max-width: 100%;
+	                min-width: 100%;
+	                font-size: 20px;
+	                height: 51px;
+	                line-height: 51px;
+	                --border-radius: 30px;
+	                border-radius: 30px;
+	                border: 1px solid #fff;
+	                text-transform: capitalize;
+	                letter-spacing: normal;
+	                --box-shadow: none;
+	                font-family: var(--font-Roboto-Bold);
+	                margin: 0px;
+	                --padding-start: 20px;
+	                --padding-end: 20px;
+	                position: relative;
+				}
+			}
+		}
+	}
+}
