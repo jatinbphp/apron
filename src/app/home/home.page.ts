@@ -41,7 +41,7 @@ export class HomePage implements OnInit
     await this.sendRequest.get_categories_main().then(result => 
     {	
       this.categoryMain=result;
-      console.log(this.categoryMain);						
+      //console.log(this.categoryMain);						
     },
     error => 
     {
@@ -53,7 +53,7 @@ export class HomePage implements OnInit
       
       this.allPopularProducts=result['data'];
       this.totalNumberOfPages=Number(result['totalPages']);
-      console.log(this.allPopularProducts);
+      //console.log(this.allPopularProducts);
     },
     error => 
     {
@@ -61,4 +61,19 @@ export class HomePage implements OnInit
     })//POPULAR PRODUCTS
   }
 
+  async ionViewWillEnter()
+  {
+    localStorage.removeItem('category_to_be_show');
+  }
+
+  categoryProducts(category_id,category_nm)
+  {
+    let objectCategory = 
+    {
+      category_id:category_id,
+      category_nm:category_nm
+    };
+    localStorage.setItem('category_to_be_show',JSON.stringify(objectCategory));
+    this.sendRequest.router.navigate(['/categories']);
+  }
 }

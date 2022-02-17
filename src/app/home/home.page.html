@@ -27,7 +27,8 @@
           <ion-grid class="pro-vertical-box">
             <ion-row>
               <ion-col size="12">
-                <ion-img src="{{popularProduct.images[0].src}}"></ion-img>
+                <ion-img *ngIf="popularProduct.images.length > 0" src="{{popularProduct.images[0].src}}"></ion-img>
+                <ion-img *ngIf="popularProduct.images.length == 0" src="../../assets/images/no-image.png"></ion-img>
               </ion-col>
               <ion-col size="12">
                 <h4 class="pro-nm" [innerHTML]="popularProduct.name"></h4>
@@ -58,7 +59,7 @@
       <h2>Categories</h2>
     </div>
     <ion-item lines="none" *ngFor="let categories of categoryMain; let c = index;">
-      <ion-grid>
+      <ion-grid (click)="categoryProducts(categories.id,categories.name)">
         <ion-row>
           <ion-col size="7">
             <ion-label [innerHTML]="categories.name"></ion-label>

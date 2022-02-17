@@ -8,7 +8,7 @@
           <ion-list-header>
             <div class="logo-close">
               <img class="logo-main" src="../../assets/images/menu-logo.png">
-              <ion-button><ion-icon name="close-outline"></ion-icon></ion-button>
+              <ion-button (click)="closeMenu()"><ion-icon name="close-outline"></ion-icon></ion-button>
             </div>
           </ion-list-header>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
