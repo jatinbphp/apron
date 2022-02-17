@@ -16,12 +16,81 @@ ion-content {
 	}
 	ion-list {
 		&.mst-popular-pro {
+			width: 100%;
+			padding: 25px 0px 20px 25px;
 			ion-item {
 				ion-slides {
 					ion-slide {
 						ion-grid {
+							width: 100%;
+							margin: 0px 14px 0px 0px;
 							ion-row {
-								ion-col {}
+								width: 100%;
+								padding: 10px 0px 0px;
+								ion-col {
+									ion-img {
+										max-width: 100%;
+									    width: calc(100% - 20px);
+									    height: 85px;
+									    object-fit: cover;
+									    object-position: center;
+									    margin: 0px auto;
+									}
+									.pro-nm {
+										width: calc(100% - 20px);
+										margin: 16px auto 10px;
+										min-height: 45px;
+									}
+									.pro-price {
+										width: calc(100% - 20px);
+										margin: 0px auto 14px;
+										min-height: 32px;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		&.categories-sec {
+			width: 100%;
+			padding: 20px 25px 25px;
+			ion-item {
+				width: 100%;
+				ion-grid {
+				    background-color: #fff;
+				    border-radius: 0px 0px 9px 9px;
+				    box-shadow: 0px 5px 3.5px rgb(0 0 0 / 36%);
+				    padding: 0px 0px 0px 20px;
+				    margin: 0px 0px 15px;
+				    overflow: hidden;
+					ion-row {
+						ion-col {
+							ion-label {
+							    width: 100%;
+							    height: 100%;
+							    line-height: normal;
+							    display: flex;
+							    align-items: center;
+							    justify-content: flex-start;
+							    font-size: 16px;
+							    line-height: 18px;
+							    color: var(--Black);
+							    font-family: var(--font-Roboto-Bold);
+							    text-overflow: ellipsis;
+							    white-space: break-spaces;
+							    overflow: hidden;
+							    padding: 0px;
+							    margin: 0px;
+							}
+							ion-img {
+								max-width: 100%;
+							    width: 100%;
+							    height: 85px;
+							    object-fit: scale-down;
+							    object-position: center;
+							    margin: 0px;
 							}
 						}
 					}
