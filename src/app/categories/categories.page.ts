@@ -12,6 +12,7 @@ export class CategoriesPage implements OnInit
   public category_to_be_show:any=[];
   public categoryMain:any=[];
   public categoryProducts:any=[];
+  public categoryProductsLoadMore:any=[];
   
   public category_id:any='';
   public category_nm:any='';
@@ -43,7 +44,16 @@ export class CategoriesPage implements OnInit
       this.category_id=(this.category_to_be_show['category_id']) ? this.category_to_be_show['category_id'] : 0;  
       this.category_nm=(this.category_to_be_show['category_nm']) ? this.category_to_be_show['category_nm'] : "";
     }
-
+    //LOADER
+		const loading = await this.loadingCtrl.create({
+			spinner: null,
+			//duration: 5000,
+			message: 'Please wait...',
+			translucent: true,
+			cssClass: 'custom-class custom-loading'
+		});
+		await loading.present();
+		//LOADER
     await this.sendRequest.get_categories_main().then(result => 
     {	
       this.categoryMain=result;
@@ -60,6 +70,7 @@ export class CategoriesPage implements OnInit
     },
     error => 
     {
+      loading.dismiss();//DISMISS LOADER
       console.log();
     });//CATEGORIES
 
@@ -71,6 +82,7 @@ export class CategoriesPage implements OnInit
     }
     await this.sendRequest.getProductFromCategory(dataCategoryID,this.sort_by,this.order_by).then(result => 
     {	
+      loading.dismiss();//DISMISS LOADER
       this.categoryProducts=result['data'];
       this.totalNumberOfPages=Number(result['totalPages']);
       //console.log(this.categoryProducts);
@@ -78,6 +90,7 @@ export class CategoriesPage implements OnInit
     },
     error => 
     {
+      loading.dismiss();//DISMISS LOADER
       console.log();
     })//PRODUCT
   }
@@ -102,5 +115,42 @@ export class CategoriesPage implements OnInit
     }
     localStorage.setItem('product_to_be_show',JSON.stringify(objProduct));
     this.sendRequest.router.navigate(['/categories/product-detail']);
+  }
+
+  async loadMoreProducts()
+  {
+    this.currentPage += 1;
+    //LOADER
+		const loading = await this.loadingCtrl.create({
+			spinner: null,
+			//duration: 5000,
+			message: 'Please wait...',
+			translucent: true,
+			cssClass: 'custom-class custom-loading'
+		});
+		await loading.present();
+		//LOADER
+    let dataCategoryID=
+    {
+      id:this.category_id,
+      page:this.currentPage 
+    }
+    await this.sendRequest.getProductFromCategory(dataCategoryID,this.sort_by,this.order_by).then(result => 
+    {	
+      loading.dismiss();//DISMISS LOADER
+      this.categoryProductsLoadMore=result['data'];
+      if(this.categoryProductsLoadMore.length > 0)
+      {
+        for(let p=0;p<this.categoryProductsLoadMore.length;p++)
+        {
+          this.categoryProducts.push(this.categoryProductsLoadMore[p]);
+        }
+      }
+    },
+    error => 
+    {
+      loading.dismiss();//DISMISS LOADER
+      console.log();
+    })//PRODUCT
   }
 }

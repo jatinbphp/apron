@@ -51,6 +51,17 @@ export class ProductDetailPage implements OnInit
     this.relatedProducts=[];
     this.relatedProductsIDS='';
 
+    //LOADER
+		const loading = await this.loadingCtrl.create({
+			spinner: null,
+			//duration: 5000,
+			message: 'Please wait...',
+			translucent: true,
+			cssClass: 'custom-class custom-loading'
+		});
+		await loading.present();
+		//LOADER
+
     let dataProduct=
     {
       product_id:this.product_id
@@ -74,6 +85,7 @@ export class ProductDetailPage implements OnInit
     },
     error => 
     {
+      loading.dismiss();//DISMISS LOADER
       console.log();
     })//PRODUCT
 
@@ -81,12 +93,13 @@ export class ProductDetailPage implements OnInit
     {
       await this.sendRequest.getRelatedProductDetailByID(this.relatedProductsIDS).then(resultRelatedProducts => 
       { 
+        loading.dismiss();//DISMISS LOADER
         this.relatedProducts=resultRelatedProducts;
         console.log(this.relatedProducts);
       },
       error => 
       {
-        //loading.dismiss();//DISMISS LOADER			
+        loading.dismiss();//DISMISS LOADER			
         console.log();
       });//RELATED PRODUCT
     }

@@ -135,6 +135,25 @@ export class SendReceiveRequestsService
 		});
 	}
 
+	getSearchedProducts(data)
+	{
+		return new Promise((resolve, reject) => 
+		{
+			let headers = this.getHeaderOptions();
+			let params = new HttpParams().set("search",data.search_text).set("category",data.search_category).set("force",'true').set("orderby",data.sort_by).set("order",data.order_by).set("status","publish").set("per_page", '100').set("consumer_key", this.consumer_key).set("consumer_secret", this.consumer_secret);						
+			this.http.get(this.api_url + "wp-json/apronbutchery-api-search-products/products", { headers: headers, params: params }).subscribe((res: any) => 
+			{
+				resolve(res);
+			},
+	        err => 
+	        {
+				let errorMessage=this.getErrorMessage(err);
+				//this.showMessage(errorMessage);
+				reject(errorMessage);
+	        });
+		});
+	}
+
   	async showMessage(message)
 	{	
 		const alert = await this.alertCtrl.create(

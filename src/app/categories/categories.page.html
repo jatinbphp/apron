@@ -65,7 +65,7 @@
       </ion-grid>
     </ion-item>
     <div class="btn-sec">
-      <ion-button color="primary" class="load-mre">load more</ion-button>
+      <ion-button color="primary" class="load-mre" *ngIf="categoryProducts.length > 49 && currentPage < totalNumberOfPages" (click)="loadMoreProducts()">load more</ion-button>
     </div>
   </ion-list>
 </ion-content>

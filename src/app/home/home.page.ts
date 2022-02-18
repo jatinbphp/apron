@@ -38,6 +38,17 @@ export class HomePage implements OnInit
 
   async ngOnInit()
   { 
+    //LOADER
+		const loading = await this.loadingCtrl.create({
+			spinner: null,
+			//duration: 5000,
+			message: 'Please wait...',
+			translucent: true,
+			cssClass: 'custom-class custom-loading'
+		});
+		await loading.present();
+		//LOADER
+
     await this.sendRequest.get_categories_main().then(result => 
     {	
       this.categoryMain=result;
@@ -45,18 +56,20 @@ export class HomePage implements OnInit
     },
     error => 
     {
+      loading.dismiss();//DISMISS LOADER
       console.log();
     });//CATEGORIES
 
     await this.sendRequest.getPopularProducts(this.currentPage,this.sort_by,this.order_by).then(result => 
     { 
-      
+      loading.dismiss();//DISMISS LOADER
       this.allPopularProducts=result['data'];
       this.totalNumberOfPages=Number(result['totalPages']);
       //console.log(this.allPopularProducts);
     },
     error => 
     {
+      loading.dismiss();//DISMISS LOADER
       console.log();
     })//POPULAR PRODUCTS
   }
