@@ -84,6 +84,6 @@ export class HomePage implements OnInit
       product_nm:product_nm
     }
     localStorage.setItem('product_to_be_show',JSON.stringify(objProduct));
-    this.sendRequest.router.navigate(['/categories/product-detail']);
+    this.sendRequest.router.navigate(['/home/product-detail']);
   }
 }
