@@ -237,15 +237,15 @@
 
 // below-css-for-on-click-ionic-background-color-remove
 .button-solid {
-    --background-activated: #D12031;
-    --background-focused: #D12031;
-    --background-hover: #D12031;
+    --background-activated: transparent;
+    --background-focused: transparent;
+    --background-hover: transparent;
     --background-activated-opacity: 1;
     --background-focused-opacity: 1;
     --background-hover-opacity: 1;
-    --color-activated: #ffffff;
-    --color-focused: #ffffff;
-    --color-hover: #ffffff;
+    --color-activated: #000000;
+    --color-focused: #000000;
+    --color-hover: #000000;
 }
 // above-css-for-on-click-ionic-background-color-remove
 
