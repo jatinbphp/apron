@@ -76,4 +76,14 @@ export class HomePage implements OnInit
     localStorage.setItem('category_to_be_show',JSON.stringify(objectCategory));
     this.sendRequest.router.navigate(['/categories']);
   }
+
+  ProductDetail(product_id,product_nm)
+  {
+    let objProduct = {
+      product_id:product_id,
+      product_nm:product_nm
+    }
+    localStorage.setItem('product_to_be_show',JSON.stringify(objProduct));
+    this.sendRequest.router.navigate(['/categories/product-detail']);
+  }
 }

@@ -95,6 +95,46 @@ export class SendReceiveRequestsService
 		});
 	}
 
+	getProductDetailByID(data)
+	{
+		return new Promise((resolve, reject) => 
+		{
+			let headers = this.getHeaderOptions();
+			
+			let params = new HttpParams().set("consumer_key", this.consumer_key).set("consumer_secret", this.consumer_secret);
+			this.http.get(this.api_url + "wp-json/wc/v3/products/"+data.product_id, { headers: headers, params: params }).subscribe((res: any) => 
+			{
+				resolve(res);
+			},
+	        err => 
+	        {
+				let errorMessage=this.getErrorMessage(err);
+				//this.showMessage(errorMessage);
+				reject(errorMessage);
+	        });
+		});
+	}
+
+	getRelatedProductDetailByID(data)
+	{
+		return new Promise((resolve, reject) => 
+		{
+			let headers = this.getHeaderOptions();
+			
+			let params = new HttpParams().set("include", data).set("per_page", '100').set("page", '1').set("consumer_key", this.consumer_key).set("consumer_secret", this.consumer_secret);
+			this.http.get(this.api_url + "wp-json/wc/v3/products", { headers: headers, params: params }).subscribe((res: any) => 
+			{
+				resolve(res);
+			},
+	        err => 
+	        {
+				let errorMessage=this.getErrorMessage(err);
+				//this.showMessage(errorMessage);
+				reject(errorMessage);
+	        });
+		});
+	}
+
   	async showMessage(message)
 	{	
 		const alert = await this.alertCtrl.create(

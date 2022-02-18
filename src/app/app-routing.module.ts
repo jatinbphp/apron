@@ -11,10 +11,23 @@ const routes: Routes = [
   {
     path: 'folder/:id',
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  },
+  }/*,
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  }*/,
+  {
+    path: 'home',
+    children:[
+      {
+        path:'',
+        loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+      },
+      {
+        path: 'product-detail',
+        loadChildren: () => import('./product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
+      }
+    ]
   },
   {
     path: 'login',
@@ -23,10 +36,27 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
-  },
+  }/*,
   {
     path: 'categories',
     loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesPageModule)
+  }*/,
+  {
+    path: 'categories',
+    children:[
+      {
+        path:'',
+        loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesPageModule)
+      },
+      {
+        path: 'product-detail',
+        loadChildren: () => import('./product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
+      }
+    ]
+  },
+  {
+    path: 'product-detail',
+    loadChildren: () => import('./product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
   }
 ];
 
