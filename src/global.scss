@@ -134,7 +134,7 @@ app-login, app-register {
     background-color: #fff;
 }
 
-app-home, app-categories {
+app-home, app-categories, app-product-detail {
     background-image: url(assets/images/texture-bck1.png);
     background-position: center center;
     background-size: cover;
@@ -149,8 +149,14 @@ ion-header {
         ion-toolbar {
             --border-width: 0px !important;
             --background: var(--White);
+            --min-height: fit-content;
+            --min-height: -webkit-fit-content;
+            --min-height: -moz-fit-content;
+            --min-height: -ms-fit-content;
+            --min-height: -o-fit-content;
             ion-buttons {
                 width: 28px;
+                height: 48px;
                 position: unset;
                 margin-inline-start: 0px;
                 ion-menu-button {
@@ -163,6 +169,24 @@ ion-header {
                         height: auto;
                         object-fit: contain;
                     }
+                }
+                ion-back-button {
+                    // width: 100%;
+                    // height: 100%;
+                    // --padding-start: 0px;
+                    // --padding-end: 0px;
+                    // color: var(--Black);
+                    // --background-hover: transparent;
+                    // --background-hover-opacity: 1;
+                    // --background-focused: currentColor;
+                    // --background-focused-opacity: 0.1;
+                    // --border-radius: 0px;
+                    // --color: var(--Black);
+                    // --icon-margin-end: 0;
+                    // --icon-margin-start: 0;
+                    // --icon-font-size: 100%;
+                    // --min-height: 38px;
+                    // font-size: 100%;
                 }
             }
             ion-img {
