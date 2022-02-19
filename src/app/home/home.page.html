@@ -4,8 +4,13 @@
       <ion-menu-button auto-hide="false" slot="start"><img class="logo-main" src="../../assets/images/menu-icon.png"></ion-menu-button>     
     </ion-buttons>
     <ion-img src="../../assets/images/apron_final_logo.png">home</ion-img>
-    <ion-button slot="end" routerDirection="root" routerLink="/search"><ion-icon name="search-outline"></ion-icon></ion-button>
-    <ion-button slot="end" class="cart-btn"><img src="../../assets/images/cart-icon1.png"><span class="cart-item-no">5</span></ion-button>
+    <ion-button slot="end" routerDirection="root" routerLink="/search">
+      <ion-icon name="search-outline"></ion-icon>
+    </ion-button>
+    <ion-button slot="end" class="cart-btn" routerDirection="root" routerLink="/cart">
+      <img src="../../assets/images/cart-icon1.png">
+      <span class="cart-item-no">{{number_of_products_in_cart}}</span>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -37,7 +42,17 @@
                 <h3 class="pro-price" [innerHTML]="popularProduct.price_html"></h3>
               </ion-col>
               <ion-col size="12">
-                <ion-button color="secondary" class="cart-icon-btn">
+                <ion-button color="secondary" *ngIf="popularProduct.images.length > 0" class="cart-icon-btn" (click)="UpdateCart(popularProduct.id,popularProduct.name,popularProduct.price,1,popularProduct.images[0].src)">
+                  <!-- <ion-icon name="cart"></ion-icon> -->
+                  <svg xmlns="http://www.w3.org/2000/svg" width="17.655" height="17.952" viewBox="0 0 17.655 17.952">
+                    <g id="cart_icon" data-name="cart icon" transform="translate(0.5 0.5)">
+                      <path id="Path_865" data-name="Path 865" d="M78.675,221.121a1.738,1.738,0,1,0,1.738,1.738A1.738,1.738,0,0,0,78.675,221.121Zm0,2.7a.966.966,0,1,1,.965-.965A.966.966,0,0,1,78.675,223.825Z" transform="translate(-73.365 -207.395)" fill="#fff" stroke="#fff" stroke-width="0.5"/>
+                      <path id="Path_866" data-name="Path 866" d="M191.519,221.121a1.738,1.738,0,1,0,1.738,1.738A1.738,1.738,0,0,0,191.519,221.121Zm0,2.7a.966.966,0,1,1,.965-.965A.965.965,0,0,1,191.519,223.825Z" transform="translate(-178.87 -207.395)" fill="#fff" stroke="#fff" stroke-width="0.5"/>
+                      <path id="Path_867" data-name="Path 867" d="M38.569,28.015a.483.483,0,0,0-.309-.155l-12.571-.174-.348-1.062a1.777,1.777,0,0,0-1.661-1.2H22.386a.386.386,0,0,0,0,.772H23.68a1,1,0,0,1,.927.676l2.453,7.4-.193.444a1.854,1.854,0,0,0,.174,1.68,1.8,1.8,0,0,0,1.448.811H36a.386.386,0,0,0,0-.772H28.489a.985.985,0,0,1-.811-.463,1.062,1.062,0,0,1-.1-.927l.155-.348,8.13-.85A2.124,2.124,0,0,0,37.7,32.224l.927-3.881A.328.328,0,0,0,38.569,28.015Zm-1.622,4.036a1.313,1.313,0,0,1-1.178,1.024l-8.033.83-1.8-5.446,11.838.174Z" transform="translate(-22 -25.427)" fill="#fff" stroke="#fff" stroke-width="1"/>
+                    </g>
+                  </svg>
+                </ion-button>
+                <ion-button color="secondary" *ngIf="popularProduct.images.length == 0" class="cart-icon-btn" (click)="UpdateCart(popularProduct.id,popularProduct.name,popularProduct.price,1,'../../assets/images/no-image.png')">
                   <!-- <ion-icon name="cart"></ion-icon> -->
                   <svg xmlns="http://www.w3.org/2000/svg" width="17.655" height="17.952" viewBox="0 0 17.655 17.952">
                     <g id="cart_icon" data-name="cart icon" transform="translate(0.5 0.5)">

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Subject, interval } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class SendReceiveRequestsService
 	private consumer_secret: string = "cs_a175de908615e35f4a561032c434688ad756de36";
 	private token: string;
 
+	private fooSubjectWhenItemAddedToCart = new Subject<any>();//THIS OBSERVABLE IS USED TO SHOW QUANTITY ON HEADER
+
 	constructor(private http: HttpClient, private alertCtrl: AlertController, public router: Router)
 	{ }
 
@@ -22,6 +25,14 @@ export class SendReceiveRequestsService
 		var headers=new HttpHeaders().set('Content-Type','application/json');
 		return { headers }		
 	}
+
+	publishSomeDataWhenItemAddedToCart(data: any) {
+        this.fooSubjectWhenItemAddedToCart.next(data);
+    }//THIS OBSERVABLE IS USED TO SHOW QUANTITY ON HEADER
+
+	getObservableWhenItemAddedToCart(): Subject<any> {
+        return this.fooSubjectWhenItemAddedToCart;
+	}//THIS OBSERVABLE IS USED TO SHOW QUANTITY ON HEADER
 
   	async get_categories_main()
 	{
@@ -154,20 +165,40 @@ export class SendReceiveRequestsService
 		});
 	}
 
+	getProductVariations(productID)
+	{
+		return new Promise((resolve, reject) => 
+		{
+			let headers = this.getHeaderOptions();
+			
+			let params = new HttpParams().set("orderby",'menu_order').set("order",'asc').set("consumer_key", this.consumer_key).set("consumer_secret", this.consumer_secret);
+			this.http.get(this.api_url + "wp-json/wc/v3/products/"+productID+"/variations", { headers: headers, params: params }).subscribe((res: any) => 
+			{
+				resolve(res);
+			},
+	        err => 
+	        {
+				let errorMessage=this.getErrorMessage(err);
+				//this.showMessage(errorMessage);
+				reject(errorMessage);
+	        });
+		});
+	}
+
   	async showMessage(message)
 	{	
 		const alert = await this.alertCtrl.create(
 		{
-		header: 'DERNAFIES',
+		header: 'THE APRON',
 		message: message,
 		buttons: 
 		[
 			{
-			text: 'Okay',
-			handler: () => 
-			{
-				//console.log('Confirm Cancel: blah');
-			}
+				text: 'Okay',
+				handler: () => 
+				{
+					//console.log('Confirm Cancel: blah');
+				}
 			}
 		]
 		});

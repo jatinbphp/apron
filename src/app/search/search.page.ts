@@ -21,8 +21,19 @@ export class SearchPage implements OnInit
 		search_text: [''],
 		search_category: ['']
 	});
+
+  public cartArray:any=[];
+  public messageForCart:any='';
+  public number_of_products_in_cart:number=0;//THIS OBSERVABLE IS USED TO SHOW QUANTITY ON HEADER
+
   constructor(private fb: FormBuilder, private sendRequest: SendReceiveRequestsService, private loadingCtrl: LoadingController)
-  { }
+  { 
+    this.sendRequest.getObservableWhenItemAddedToCart().subscribe((dataCart) => 
+		{
+			this.number_of_products_in_cart=dataCart.number_of_products_in_cart;
+			//console.log(dataCart);
+		});//THIS OBSERVABLE IS USED TO SHOW QUANTITY ON HEADER
+  }
 
   async ngOnInit()
   { 
@@ -50,6 +61,15 @@ export class SearchPage implements OnInit
     });//CATEGORIES
   }
 
+  async ionViewWillEnter()
+  {
+    //THIS OBSERVABLE IS USED TO SHOW QUANTITY ON HEADER
+    this.cartArray = localStorage.getItem('cart');
+    this.cartArray = (this.cartArray) ? JSON.parse(this.cartArray) : [];
+    this.number_of_products_in_cart = this.cartArray.length;
+    //THIS OBSERVABLE IS USED TO SHOW QUANTITY ON HEADER
+  }
+  
   async searchAsAsked(form)
   {
     let search_text = (form.search_text) ? form.search_text : "";
@@ -81,5 +101,56 @@ export class SearchPage implements OnInit
     }
     localStorage.setItem('product_to_be_show',JSON.stringify(objProduct));
     this.sendRequest.router.navigate(['/categories/product-detail']);
+  }
+
+  UpdateCart(product_id,product_nm,product_pr,product_qt,product_im)
+  {
+    let product_image = (product_im) ? product_im : "../../assets/images/no-image.png";
+    this.cartArray = localStorage.getItem('cart');
+    this.cartArray = (this.cartArray) ? JSON.parse(this.cartArray) : [];
+    if(this.cartArray!=null && this.cartArray.length > 0)
+    {
+      if(this.cartArray.find(v => v.product_id === product_id))
+      {
+        this.messageForCart="Product already is in your cart.";
+      }
+      else
+      {
+        let obj = 
+        {
+          product_id:product_id,
+          product_nm:product_nm,
+          product_pr:product_pr,
+          product_im:product_image,
+          product_qt:(product_qt > 0) ? product_qt : 0,
+          product_vr:''//PRODUCT VARIATION ID
+        };            
+        this.cartArray.push(obj);
+        this.messageForCart="Product added to cart.";
+      }
+      localStorage.setItem('cart',JSON.stringify(this.cartArray));
+      this.sendRequest.showMessage(this.messageForCart);
+    }
+    else 
+    {
+      this.cartArray = [];
+      let objCart = {
+        product_id:product_id,
+        product_nm:product_nm,
+        product_pr:product_pr,
+        product_im:product_image,
+        product_qt:(product_qt > 0) ? product_qt : 0,
+        product_vr:''//PRODUCT VARIATION ID
+      };            
+      this.cartArray.push(objCart);
+      localStorage.setItem('cart',JSON.stringify(this.cartArray));
+      this.messageForCart="Product added to cart.";
+      this.sendRequest.showMessage(this.messageForCart);
+    }
+
+    this.sendRequest.publishSomeDataWhenItemAddedToCart({
+      is_cart_has_item_within: true,
+      number_of_products_in_cart:this.cartArray.length
+    });//THIS OBSERVABLE IS USED TO SHOW QUANTITY ON HEADER
   }
 }
