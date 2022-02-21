@@ -1,0 +1,122 @@
+ion-content {
+	--background: transparent;
+	p {
+		&:first-child {
+			width: 100%;
+			text-align: center;
+			text-transform: initial;
+		    font-size: 16px;
+		    line-height: 18px;
+		    color: var(--White);
+		    font-family: var(--font-Roboto-Bold);
+		    padding: 0px;
+		    margin: 25px 0px;
+		}
+	}
+	ion-grid {
+		padding: 25px 25px 0px;
+		ion-row {
+			margin: 0px 0px 8px;
+			ion-col {
+				width: 100%;
+				text-align: left;
+				text-transform: initial;
+			    font-size: 16px;
+			    line-height: 18px;
+			    color: var(--White);
+			    font-family: var(--font-Roboto-Bold);
+			    padding: 0px;
+			    margin: 0px 0px;
+			}
+		}
+		&.pro-vertical-box-list {
+			display: flex;
+    		flex-wrap: wrap;
+			padding: 20px 25px 25px;
+			margin: 0px -10px;
+			ion-row {
+				&.pro-vertical-box {
+					width: calc(100% - 50% - 20px);
+					// background-color: transparent;
+					// box-shadow: none;
+					padding: 10px 0px 0px;
+					margin: 0px 10px 20px;
+					ion-col {
+						width: 100%;
+						max-width: 100%;
+						min-width: 100%;
+						ion-img {
+							max-width: 100%;
+						    width: calc(100% - 20px);
+						    height: 85px;
+					        // border: 15px solid #fff;
+						    border-radius: 0px 0px 9px 9px;
+						    // height: 150px;
+						    object-fit: cover;
+						    object-position: center;
+						    margin: 0px auto;
+						    background-color: var(--White);
+						}
+						.pro-quantity-input {
+							width: calc(100% - 20px);
+						    margin: 8px auto 14px;
+						    display: flex;
+						    justify-content: center;
+						    align-items: center;
+						    input {
+						    	&.minus, &.plus {
+						    		width: 28px;
+								    height: 28px;
+								    line-height: 28px;
+								    font-size: 20px;
+								    padding: 0px;
+								    border-radius: 6px;
+								    border: 1px solid #fff;
+								    background-color: #000;
+								    color: #fff;
+								    font-family: var(--font-Roboto-Regular);
+								    display: flex;
+								    justify-content: center;
+								    align-items: center;
+						    	}
+						    	&.input-number {
+						    		width: 60px;
+								    height: 28px;
+								    line-height: 28px;
+								    font-size: 18px;
+								    text-align: center;
+								    padding: 4px;
+								    margin: 0px 8px;
+								    border-radius: 6px;
+								    background-color: transparent;
+								    border: 1px solid #000000;
+								    color: #000;
+								    // border: 2px solid #ffffff;
+								    // color: #ffffff;
+								    font-family: var(--font-Roboto-Regular);
+								    display: flex;
+								    justify-content: center;
+								    align-items: center;
+						    	}
+						    }
+						}
+						.pro-nm {
+							width: calc(100% - 20px);
+							margin: 16px auto 10px;
+							min-height: 45px;
+							//color: var(--White);
+							color: var(--Black);
+						}
+						.pro-price {
+							width: calc(100% - 20px);
+							margin: 0px auto 14px;
+							// min-height: 32px;
+							//color: var(--White);
+							color: var(--Black);
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -21,14 +21,15 @@
       <ion-col size="3">R{{cartTotal | number:'1.2-2'}}</ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid *ngIf="cartArray.length > 0">
-    <ion-row *ngFor="let product of cartArray; let p = index;">
+  <ion-grid *ngIf="cartArray.length > 0" class="pro-vertical-box-list">
+    <ion-row *ngFor="let product of cartArray; let p = index;" class="pro-vertical-box">
       <ion-col>
         <ion-img src="{{product.product_im}}"></ion-img>
       </ion-col>
       <ion-col>
-        {{product.product_nm}}
-        <span>R{{product.product_pr | number:'1.2-2'}}</span>
+        <h4 class="pro-nm">{{product.product_nm}}
+          <span>R{{product.product_pr | number:'1.2-2'}}</span>
+        </h4>
       </ion-col>
       <ion-col>
         <div class="pro-quantity-input">
@@ -37,7 +38,9 @@
           <input class="plus" type="button" value="+" (click)="increaseQuantity(product)">
         </div>
       </ion-col>
-      <ion-col><span>R{{cartCalculationArray[p].product_to | number:'1.2-2'}}</span></ion-col>
+      <ion-col>
+        <h3 class="pro-price"><span>R{{cartCalculationArray[p].product_to | number:'1.2-2'}}</span></h3>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
