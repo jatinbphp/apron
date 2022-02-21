@@ -1,9 +1,3 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>Register</ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content>
   <div class="main-div">
     <img class="logo-main" src="../../assets/images/no-image.png">
@@ -24,11 +18,11 @@
           <ion-icon item-end [name]="ConfirmPasswordIcon" class="passwordIcon" (click)='hideShowConfirmPassword()'></ion-icon>
         </ion-item>
         <ion-item class="mt-12">
-          <ion-router-link href="https://apronbutchery.co.za/privacy-policy/" target="_blank">I agree to the T's & C's</ion-router-link>
+          <ion-router-link (click)="openActionRequested('https://apronbutchery.co.za/privacy-policy/')">I agree to the T's & C's</ion-router-link>
           <ion-checkbox [(ngModel)]="accept_tems" slot="start" formControlName="accept_tems"></ion-checkbox>
         </ion-item>
         <ion-item lines="none" class="ion-text-center">
-            <ion-router-link href="https://apronbutchery.co.za/privacy-policy/" target="_blank">Please review terms and conditions</ion-router-link>
+            <ion-router-link (click)="openActionRequested('https://apronbutchery.co.za/privacy-policy/')">Please review terms and conditions</ion-router-link>
         </ion-item>
       </ion-list>
       <ion-button type="submit" color="danger" expand="block" [disabled]="(!registerForm.valid) || accept_tems==false">Register</ion-button>

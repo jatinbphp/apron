@@ -16,6 +16,7 @@ export class SendReceiveRequestsService
 	private token: string;
 
 	private fooSubjectWhenItemAddedToCart = new Subject<any>();//THIS OBSERVABLE IS USED TO SHOW QUANTITY ON HEADER
+	public fooSubjectWhenlOGIN = new Subject<any>();//THIS OBSERVABLE IS USED TO CHECK USER LOGIN
 
 	constructor(private http: HttpClient, private alertCtrl: AlertController, public router: Router)
 	{ }
@@ -32,7 +33,7 @@ export class SendReceiveRequestsService
 		{
 			let headers = this.getHeaderOptions();
 			
-			let params = new HttpParams().set("controller",'user').set("method", 'register'); //Create new HttpParams
+			let params = new HttpParams().set("controller",'user').set("method", 'register').set("consumer_key", this.consumer_key).set("consumer_secret", this.consumer_secret); //Create new HttpParams
 			this.http.get(this.api_url + "api/get_nonce", { headers: headers, params: params }).subscribe((res: any) => 
 			{
 				resolve(res);
@@ -53,6 +54,14 @@ export class SendReceiveRequestsService
 	getObservableWhenItemAddedToCart(): Subject<any> {
         return this.fooSubjectWhenItemAddedToCart;
 	}//THIS OBSERVABLE IS USED TO SHOW QUANTITY ON HEADER
+
+	publishSomeDataWhenLogin(data: any) {
+        this.fooSubjectWhenlOGIN.next(data);
+    }//THIS OBSERVABLE IS USED TO CHECK USER LOGIN
+
+    getObservableWhenLogin(): Subject<any> {
+        return this.fooSubjectWhenlOGIN;
+	}//THIS OBSERVABLE IS USED TO CHECK USER LOGIN
 
   	async get_categories_main()
 	{
@@ -235,6 +244,34 @@ export class SendReceiveRequestsService
 			this.http.get(this.api_url + "api/user/register/", { headers: headers, params: params }).subscribe((res: any) => 
 			{
 				resolve(res);
+			},
+	        err => 
+	        {
+				let errorMessage=this.getErrorMessage(err);
+				this.showMessage(errorMessage);
+				reject(errorMessage);
+	        });
+		});
+	}
+
+	makeMeLoggedin(option:any)
+	{	
+		return new Promise((resolve, reject) => 
+		{
+			let headers = this.getHeaderOptions();
+			let params = new HttpParams().set("username",option.username).set("password", option.password); //Create new HttpParams
+			this.http.get(this.api_url + "wp-json/apronbutchery-api-login/login", { headers: headers, params: params }).subscribe((res: any) => 
+			{
+				//console.log(res);
+				if(res.data==undefined) 
+				{
+					this.showMessage(res.message);
+					reject(res);
+				} 
+				else 
+				{
+					resolve(res);
+				}
 			},
 	        err => 
 	        {
