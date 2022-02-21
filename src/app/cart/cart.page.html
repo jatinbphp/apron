@@ -11,14 +11,14 @@
 
 <ion-content>
   <p *ngIf="cartArray.length == 0">Your cart is empty!</p>
-  <ion-grid *ngIf="cartArray.length > 0">
+  <ion-grid *ngIf="cartArray.length > 0" class="cart-top-details">
     <ion-row>
-      <ion-col size="8">Number of products in cart</ion-col>
-      <ion-col size="3">{{cartArray.length}}</ion-col>
+      <ion-col size="9">Number of products in cart</ion-col>
+      <ion-col size="3" class="ion-text-right">{{cartArray.length}}</ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size="8">Cart Total</ion-col>
-      <ion-col size="3">R{{cartTotal | number:'1.2-2'}}</ion-col>
+      <ion-col size="9">Cart Total</ion-col>
+      <ion-col size="3" class="ion-text-right">R{{cartTotal | number:'1.2-2'}}</ion-col>
     </ion-row>
   </ion-grid>
   <ion-grid *ngIf="cartArray.length > 0" class="pro-horizontal-box-list">
