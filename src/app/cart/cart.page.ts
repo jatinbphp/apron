@@ -156,4 +156,45 @@ export class CartPage implements OnInit
       }            
     }
   }
+
+  async removeFromCart(product_id, product_pr)
+  {
+    this.cartArray.some(function(item, index)
+    {
+      if(this.cartArray[index].product_id === product_id)
+      { 
+        this.cartArray.splice(index, 1);
+      }
+    },this);
+
+
+    this.cartArray.some(function(item, index)
+    {
+      if(this.cartArray[index].product_id === product_id)
+      {
+        this.cartArray.splice(index, 1);
+      }
+    },this);    
+    
+    this.cartCalculationArray.some(function(item, index)
+    {
+      if(this.cartCalculationArray[index].product_id === product_id)
+      {
+        this.cartCalculationArray.splice(index, 1);
+      }
+    },this);        
+    
+    this.cartTotal -= product_pr;
+
+    if(this.cartArray.length == 0)
+    {
+      this.cartTotal = 0;
+      this.sendRequest.publishSomeDataWhenItemAddedToCart({
+        is_cart_has_item_within: false
+      });//THIS OBSERVABLE IS USED TO SHOW RED DOT ON CART MENU      
+    }
+    localStorage.setItem('cart',JSON.stringify(this.cartArray));  
+    this.sendRequest.showMessage("Product removed from cart.");  
+    this.ionViewWillEnter();
+  }
 }

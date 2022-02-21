@@ -28,7 +28,7 @@
       </ion-col>
       <ion-col class="pro-nm-quantity-sec">
         <h4 class="pro-nm">{{product.product_nm}}
-          <span>R{{product.product_pr | number:'1.2-2'}}</span>
+          <br />R{{product.product_pr | number:'1.2-2'}}
         </h4>
         <div class="pro-quantity-input">
           <input class="minus" type="button" value="-" (click)="decreaseQuantity(product)">
@@ -38,7 +38,14 @@
       </ion-col>
       <ion-col class="pro-del-price-sec">
         <h3 class="pro-price"><span>R{{cartCalculationArray[p].product_to | number:'1.2-2'}}</span></h3>
-        <ion-button color="primary"><ion-icon name="close-outline"></ion-icon></ion-button>
+        <ion-button color="primary" (click)="removeFromCart(product.product_id,product.product_pr)">
+          <ion-icon name="close-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button color="danger">CHECKOUT</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

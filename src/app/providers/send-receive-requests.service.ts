@@ -26,6 +26,26 @@ export class SendReceiveRequestsService
 		return { headers }		
 	}
 
+	getNonce()
+	{	
+		return new Promise((resolve, reject) => 
+		{
+			let headers = this.getHeaderOptions();
+			
+			let params = new HttpParams().set("controller",'user').set("method", 'register'); //Create new HttpParams
+			this.http.get(this.api_url + "api/get_nonce", { headers: headers, params: params }).subscribe((res: any) => 
+			{
+				resolve(res);
+			},
+	        err => 
+	        {
+				let errorMessage=this.getErrorMessage(err);
+				this.showMessage(errorMessage);
+				reject(errorMessage);
+	        });
+		});
+	}
+
 	publishSomeDataWhenItemAddedToCart(data: any) {
         this.fooSubjectWhenItemAddedToCart.next(data);
     }//THIS OBSERVABLE IS USED TO SHOW QUANTITY ON HEADER
@@ -203,6 +223,26 @@ export class SendReceiveRequestsService
 		]
 		});
 		await alert.present();		
+	}
+
+	register(data,nonce)
+	{	
+		return new Promise((resolve, reject) => 
+		{
+			let headers = this.getHeaderOptions();
+			
+			let params = new HttpParams().set("username",data.username).set("email", data.email).set("user_pass", data.cpassword).set("nonce", nonce).set("display_name", data.username); //Create new HttpParams
+			this.http.get(this.api_url + "api/user/register/", { headers: headers, params: params }).subscribe((res: any) => 
+			{
+				resolve(res);
+			},
+	        err => 
+	        {
+				let errorMessage=this.getErrorMessage(err);
+				this.showMessage(errorMessage);
+				reject(errorMessage);
+	        });
+		});
 	}
 
   	getErrorMessage(err)

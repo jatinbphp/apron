@@ -15,6 +15,8 @@ export class RegisterPage implements OnInit
   public passwordIcon: string = 'eye-off';
 	public ConfirmPasswordType: string = 'password';
 	public ConfirmPasswordIcon: string = 'eye-off';
+  public nonce:string='';
+  public resultDataSignup:any=[];
 
   public registerForm = this.fb.group({
     email: ['',  [Validators.required, Validators.pattern("^[a-zA-Z0-9._]+[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$")]],
@@ -30,6 +32,16 @@ export class RegisterPage implements OnInit
 
   ngOnInit()
   { }
+
+  async ionViewWillEnter() 
+	{
+		await this.sendRequest.getNonce().then((response:any) => 
+		{	console.log(response);
+			this.nonce=response.nonce;
+		},
+		error => 
+		{});
+	}
 
   checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string)
 	{
@@ -57,6 +69,40 @@ export class RegisterPage implements OnInit
 	{
 		this.ConfirmPasswordType = this.ConfirmPasswordType === 'text' ? 'password' : 'text';
     this.ConfirmPasswordIcon = this.ConfirmPasswordIcon === 'eye-off' ? 'eye' : 'eye-off';
+	}
+
+  async register(form,nonce)
+	{
+		//LOADER
+		const loading = await this.loadingCtrl.create({
+			spinner: null,
+			//duration: 5000,
+			message: 'Please wait...',
+			translucent: true,
+			cssClass: 'custom-class custom-loading'
+		});
+		await loading.present();
+		//LOADER register
+		this.sendRequest.register(form,this.nonce).then(result => 
+		{	
+			loading.dismiss();//DISMISS LOADER			
+			this.resultDataSignup=result;
+			if(this.resultDataSignup.status=="ok")
+			{
+				this.sendRequest.showMessage("You are successfully registered!<br/>Please login.");
+				this.sendRequest.router.navigate(['/login']);
+			}
+			if(this.resultDataSignup.status=="error")
+			{
+				this.sendRequest.router.navigate(['/register']);
+				this.sendRequest.showMessage(this.resultDataSignup.error);
+			}
+		},
+		error => 
+		{			
+			loading.dismiss();//DISMISS LOADER
+		})		
+		/**/
 	}
 
 }
