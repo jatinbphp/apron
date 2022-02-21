@@ -53,43 +53,67 @@ ion-content {
 				        font-family: var(--font-Roboto-Medium);
 				        text-transform: uppercase;
 				        padding: 0px;
-				        margin: 0px 0px 20px;
+				        //margin: 0px 0px 20px;
+				        margin: 0px 0px 10px;
 					}
 					ion-item{
+						width: 100%;
+					    padding: 0px;
+						margin: 0px 0px 25px;
 						ion-label{
+							// width: 100%;
+							// text-align: left;
+							// font-size: 17px;
+							// line-height: 19px;
+							// color: #FFFFFF;
+							// font-family: var(--font-Roboto-Medium);
+							// text-transform: uppercase;
+							// padding: 0px;
+							// margin: 0px 0px 20px;
 							width: 100%;
-							text-align: left;
-							font-size: 17px;
-							line-height: 19px;
-							color: #FFFFFF;
-							font-family: var(--font-Roboto-Medium);
-							text-transform: uppercase;
-							padding: 0px;
-							margin: 0px 0px 20px;
+						    font-size: 16px;
+						    line-height: normal;
+						    font-family: var(--font-Roboto-Regular);
+						    color: var(--White);
+						    padding: 0px;
+						    margin: 0px;
+						    @media(max-width:374px) {
+								font-size: 14px;
+							}
 						}
 						ion-select {
 							width: 100%;
-							height: 48px;
-							line-height: 48px;
-							border-radius: 0px;
-							box-shadow: none;
-							background-color: #fff;
-							--padding-start: 10px;
 							font-size: 16px;
-							color: var(--Black);
+							line-height: normal;
 							font-family: var(--font-Roboto-Regular);
-							border-bottom: 1px solid #FFFFFF;
-							--padding-top: 0;
-							--padding-bottom: 0;
-							--placeholder-color: #000;
-							--placeholder-font-style: initial;
-							--placeholder-font-weight: initial;
-							--placeholder-opacity: 1;
+							color: var(--White);
+							border-bottom: 1px solid #fff;
 							@media(max-width:374px) {
 								font-size: 14px;
-								height: 42px;
-								line-height: 42px;
 							}
+
+							// width: 100%;
+							// height: 48px;
+							// line-height: 48px;
+							// border-radius: 0px;
+							// box-shadow: none;
+							// background-color: #fff;
+							// --padding-start: 10px;
+							// font-size: 16px;
+							// color: var(--Black);
+							// font-family: var(--font-Roboto-Regular);
+							// border-bottom: 1px solid #FFFFFF;
+							// --padding-top: 0;
+							// --padding-bottom: 0;
+							// --placeholder-color: #000;
+							// --placeholder-font-style: initial;
+							// --placeholder-font-weight: initial;
+							// --placeholder-opacity: 1;
+							// @media(max-width:374px) {
+							// 	font-size: 14px;
+							// 	height: 42px;
+							// 	line-height: 42px;
+							// }
 						}
 						.pro-price-portion{
 							width: 100%;

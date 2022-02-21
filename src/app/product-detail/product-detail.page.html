@@ -36,7 +36,8 @@
       <ion-col size="12">
         <ion-item>
           <ion-label position="floating">Portion</ion-label>
-          <ion-select placeholder="Choose an option" (ionChange)="selectedVariation($event.target.value)">
+          <!-- <ion-select placeholder="Choose an option" (ionChange)="selectedVariation($event.target.value)"> -->
+          <ion-select (ionChange)="selectedVariation($event.target.value)">
             <ion-select-option value="any#0">Choose an option</ion-select-option>
             <ion-select-option *ngFor="let variations of ProductVariations;let v=index;" value="{{variations.id}}#{{variations.attributes[0].option}}#{{variations.price}}">{{variations.attributes[0].option}}</ion-select-option>
           </ion-select>

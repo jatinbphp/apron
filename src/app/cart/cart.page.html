@@ -21,25 +21,24 @@
       <ion-col size="3">R{{cartTotal | number:'1.2-2'}}</ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid *ngIf="cartArray.length > 0" class="pro-vertical-box-list">
-    <ion-row *ngFor="let product of cartArray; let p = index;" class="pro-vertical-box">
-      <ion-col>
+  <ion-grid *ngIf="cartArray.length > 0" class="pro-horizontal-box-list">
+    <ion-row *ngFor="let product of cartArray; let p = index;" class="pro-horizontal-box">
+      <ion-col class="pro-img-sec">
         <ion-img src="{{product.product_im}}"></ion-img>
       </ion-col>
-      <ion-col>
+      <ion-col class="pro-nm-quantity-sec">
         <h4 class="pro-nm">{{product.product_nm}}
           <span>R{{product.product_pr | number:'1.2-2'}}</span>
         </h4>
-      </ion-col>
-      <ion-col>
         <div class="pro-quantity-input">
           <input class="minus" type="button" value="-" (click)="decreaseQuantity(product)">
           <input class="input-number" type="number" min="1" max="100" value="{{product.product_qt}}" name="{{product.product_id}}">                
           <input class="plus" type="button" value="+" (click)="increaseQuantity(product)">
         </div>
       </ion-col>
-      <ion-col>
+      <ion-col class="pro-del-price-sec">
         <h3 class="pro-price"><span>R{{cartCalculationArray[p].product_to | number:'1.2-2'}}</span></h3>
+        <ion-button color="primary"><ion-icon name="close-outline"></ion-icon></ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
