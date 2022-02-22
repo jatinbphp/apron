@@ -155,6 +155,7 @@ ion-header {
             --min-height: -moz-fit-content;
             --min-height: -ms-fit-content;
             --min-height: -o-fit-content;
+            padding: 0px 6px;
             ion-buttons {
                 width: 28px;
                 height: 48px;
@@ -188,6 +189,15 @@ ion-header {
                     // --icon-font-size: 100%;
                     // --min-height: 38px;
                     // font-size: 100%;
+                    button.button-native {
+                        .button-inner {
+                            .button-text {
+                                display: none !important;
+                                opacity: 0 !important;
+                                visibility: hidden !important;
+                            }
+                        }
+                    }
                 }
             }
             ion-img {
@@ -197,7 +207,7 @@ ion-header {
                 max-width: -ms-fit-content;
                 max-width: -o-fit-content;
                 max-height: 100%;
-                width: 90px;
+                width: 124px;
                 height: 38px;
                 object-fit: contain;
                 object-position: center;
@@ -209,10 +219,11 @@ ion-header {
                 width: -moz-fit-content;
                 width: -ms-fit-content;
                 width: -o-fit-content;
+                max-width: 100%;
                 position: unset;
                 padding: 0px 10px;
                 margin: 0px;
-                font-size: 20px;
+                font-size: 15px;
                 line-height: normal;
                 color: var(--Black);
                 font-family: var(--font-SegoeUI);
@@ -280,6 +291,19 @@ ion-header {
     }
 }
 
+ion-header {
+    &.most-used-header {
+        ion-toolbar {
+            ion-title {
+                .toolbar-title {
+                    white-space: break-spaces !important;
+                    text-align: left !important;
+                }
+            }
+        }
+    }
+}
+
 .title-main {
     width: 100%;
     display: flex;
@@ -334,7 +358,8 @@ ion-header {
         text-align: center;
         font-size: 16px;
         line-height: 16px;
-        color: #FB1F1F;
+        //color: #FB1F1F;
+        color: #D12031;
         font-family: var(--font-Roboto-Medium);
         text-transform: uppercase;
         padding: 0px;
