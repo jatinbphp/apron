@@ -25,7 +25,7 @@ export class CategoriesPage implements OnInit
 
   public optionsCategorySlider = 
   {
-    slidesPerView: 4,
+    slidesPerView: 2.5,
     initialSlide: 1,
     speed: 600,
   };

@@ -32,6 +32,9 @@ ion-content {
 					    border: 15px solid #fff;
 					    background-color: #fff;
 					    border-radius: 0px 0px 9px 9px;
+					    &.pro-no-img {
+					    	object-fit: contain;
+					    }
 					}
 					&.pro-nm {
 						width: 100%;
