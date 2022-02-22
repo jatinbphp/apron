@@ -89,7 +89,7 @@ export class CategoriesPage implements OnInit
       console.log();
     });//CATEGORIES
 
-    this.categoryProducts=[];
+    //this.categoryProducts=[];
     let dataCategoryID=
     {
       id:this.category_id,
