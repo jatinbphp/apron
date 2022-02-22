@@ -195,7 +195,14 @@ export class ProductDetailPage implements OnInit
         this.cartArray.find(v => v.product_id === product_id).product_nm = product_name_to_update;
         this.cartArray.find(v => v.product_id === product_id).product_pr = product_pr;
         this.cartArray.find(v => v.product_id === product_id).product_vr = this.ProductVariationsSelected;
-        this.messageForCart="Product already is in your cart.";
+        if(this.ProductVariationsSelected!=null)
+        {
+          this.messageForCart=product_name_to_update+"<br />\nis already in your cart.";
+        }
+        else
+        {
+          this.messageForCart=product_nm+"<br />\nis already in your cart.";
+        }
       }
       else
       {
@@ -209,7 +216,14 @@ export class ProductDetailPage implements OnInit
           product_vr:this.ProductVariationsSelected//PRODUCT VARIATION ID
         };            
         this.cartArray.push(obj);
-        this.messageForCart="Product added to cart.";
+        if(this.ProductVariationsSelected!=null)
+        {
+          this.messageForCart=product_name_to_update+"<br />\nis added to cart.";
+        }
+        else
+        {
+          this.messageForCart=product_nm+"<br />\nis added to cart.";
+        }
       }
       localStorage.setItem('cart',JSON.stringify(this.cartArray));
       this.sendRequest.showMessage(this.messageForCart);
@@ -227,7 +241,14 @@ export class ProductDetailPage implements OnInit
       };            
       this.cartArray.push(objCart);
       localStorage.setItem('cart',JSON.stringify(this.cartArray));
-      this.messageForCart="Product added to cart.";
+      if(this.ProductVariationsSelected!=null)
+      {
+        this.messageForCart=product_name_to_update+"<br />\nis added to cart.";
+      }
+      else
+      {
+        this.messageForCart=product_nm+"<br />\nis added to cart.";
+      }
       this.sendRequest.showMessage(this.messageForCart);
     }
 

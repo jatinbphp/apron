@@ -52,7 +52,8 @@
                   <h3 class="pro-price" [innerHTML]="product.price_html"></h3>
                 </ion-col>
                 <ion-col size="12">
-                  <ion-button color="secondary" *ngIf="product.images.length > 0" class="cart-icon-btn" (click)="UpdateCart(product.id,product.name,product.price,1,product.images[0].src)">
+                  <div class="out-of-stock" *ngIf="product.stock_status=='outofstock'">OUT OF STOCK</div>
+                  <ion-button [disabled]="product.stock_status=='outofstock'" color="secondary" *ngIf="product.images.length > 0 && product.stock_status=='instock'" class="cart-icon-btn" (click)="UpdateCart(product.id,product.name,product.price,1,product.images[0].src)">
                     <!-- <ion-icon name="cart"></ion-icon> -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="17.655" height="17.952" viewBox="0 0 17.655 17.952">
                       <g id="cart_icon" data-name="cart icon" transform="translate(0.5 0.5)">
@@ -62,7 +63,7 @@
                       </g>
                     </svg>
                   </ion-button>
-                  <ion-button color="secondary" *ngIf="product.images.length == 0" class="cart-icon-btn" (click)="UpdateCart(product.id,product.name,product.price,1,'../../assets/images/no-image.png')">
+                  <ion-button [disabled]="product.stock_status=='outofstock'" color="secondary" *ngIf="product.images.length == 0 && product.stock_status=='instock'" class="cart-icon-btn" (click)="UpdateCart(product.id,product.name,product.price,1,'../../assets/images/no-image.png')">
                     <!-- <ion-icon name="cart"></ion-icon> -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="17.655" height="17.952" viewBox="0 0 17.655 17.952">
                       <g id="cart_icon" data-name="cart icon" transform="translate(0.5 0.5)">

@@ -55,12 +55,12 @@ export class CartPage implements OnInit
     console.log(this.cartCalculationArray);
   }
 
-  updateCart(productID,quantity)
+  updateCart(productID,productNM,quantity)
   {
     if(this.cartArray.find(v => v.product_id === productID))
     {
       this.cartArray.find(v => v.product_id === productID).product_qt = quantity;
-      this.messageForCart="Product updated to cart.";      
+      this.messageForCart=productNM+" <br />\nquantity updated to cart.";      
     }
     else
     {
@@ -81,7 +81,7 @@ export class CartPage implements OnInit
     if(this.cartArray.length > 0)
     {
       let productID = product.product_id;
-      
+      let productNM = product.product_nm;
       if(this.cartArray.find(v => v.product_id === productID))
       {
         let quantity = Number(this.cartArray.find(v => v.product_id === productID).product_qt);
@@ -108,7 +108,7 @@ export class CartPage implements OnInit
           this.cartCalculationArray.push(obj);
         }        
         //Each product pricing
-        this.updateCart(productID,quantity);
+        this.updateCart(productID,productNM,quantity);
       }      
     } 
   }
@@ -118,6 +118,7 @@ export class CartPage implements OnInit
     if(this.cartArray.length > 0)
     {
       let productID = product.product_id;
+      let productNM = product.product_nm;
       if(this.cartArray.find(v => v.product_id === productID))
       {
         let quantity = Number(this.cartArray.find(v => v.product_id === productID).product_qt);
@@ -151,7 +152,7 @@ export class CartPage implements OnInit
           }     
           //Each product pricing
 
-          this.updateCart(productID,quantity);
+          this.updateCart(productID,productNM,quantity);
         }
       }            
     }

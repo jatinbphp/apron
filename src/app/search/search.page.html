@@ -35,7 +35,7 @@
         </ion-item>
       </ion-list>
     </form>
-    <p *ngIf="searchResultMain.length == 0 && is_searched == true" class="no-results">No results available.</p>
+    <!--<p *ngIf="searchResultMain.length == 0 && is_searched == true" class="no-results">No results available.</p>-->
     <ion-list *ngIf="searchResultMain.length > 0">
       <ion-item lines="none">
         <ion-grid>
@@ -54,7 +54,8 @@
                     <h3 class="pro-price" [innerHTML]="product.price_html"></h3>
                   </ion-col>
                   <ion-col size="12">
-                    <ion-button color="secondary" class="cart-icon-btn" *ngIf="product.image!=null" (click)="UpdateCart(product.ID,product.post_title,product.regular_price,1,product.image)">
+                    <div class="out-of-stock" *ngIf="product.stock_status=='outofstock'">OUT OF STOCK</div>
+                    <ion-button [disabled]="product.stock_status=='outofstock'" color="secondary" class="cart-icon-btn" *ngIf="product.image!=null && product.stock_status=='instock'" (click)="UpdateCart(product.ID,product.post_title,product.regular_price,1,product.image)">
                       <!-- <ion-icon name="cart"></ion-icon> -->
                       <svg xmlns="http://www.w3.org/2000/svg" width="17.655" height="17.952" viewBox="0 0 17.655 17.952">
                         <g id="cart_icon" data-name="cart icon" transform="translate(0.5 0.5)">
@@ -64,7 +65,7 @@
                         </g>
                       </svg>
                     </ion-button>
-                    <ion-button color="secondary" class="cart-icon-btn" *ngIf="product.image==null" (click)="UpdateCart(product.ID,product.post_title,product.regular_price,1,'../../assets/images/no-image.png')">
+                    <ion-button [disabled]="product.stock_status=='outofstock'" color="secondary" class="cart-icon-btn" *ngIf="product.image==null && product.stock_status=='instock'" (click)="UpdateCart(product.ID,product.post_title,product.regular_price,1,'../../assets/images/no-image.png')">
                       <!-- <ion-icon name="cart"></ion-icon> -->
                       <svg xmlns="http://www.w3.org/2000/svg" width="17.655" height="17.952" viewBox="0 0 17.655 17.952">
                         <g id="cart_icon" data-name="cart icon" transform="translate(0.5 0.5)">

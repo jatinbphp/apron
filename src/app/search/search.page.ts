@@ -112,7 +112,7 @@ export class SearchPage implements OnInit
     {
       if(this.cartArray.find(v => v.product_id === product_id))
       {
-        this.messageForCart="Product already is in your cart.";
+        this.messageForCart=product_nm+"<br />\nis already in your cart.";
       }
       else
       {
@@ -126,7 +126,7 @@ export class SearchPage implements OnInit
           product_vr:''//PRODUCT VARIATION ID
         };            
         this.cartArray.push(obj);
-        this.messageForCart="Product added to cart.";
+        this.messageForCart=product_nm+"<br />\nis added to cart.";
       }
       localStorage.setItem('cart',JSON.stringify(this.cartArray));
       this.sendRequest.showMessage(this.messageForCart);
@@ -144,7 +144,7 @@ export class SearchPage implements OnInit
       };            
       this.cartArray.push(objCart);
       localStorage.setItem('cart',JSON.stringify(this.cartArray));
-      this.messageForCart="Product added to cart.";
+      this.messageForCart=product_nm+"<br />\nis added to cart.";
       this.sendRequest.showMessage(this.messageForCart);
     }
 
