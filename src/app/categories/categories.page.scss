@@ -1,5 +1,9 @@
 ion-header {
-	ion-toolbar {}
+	ion-toolbar {
+		ion-buttons {
+			padding-left: 6px;
+		}
+	}
 }
 ion-content {
 	--background: transparent;
