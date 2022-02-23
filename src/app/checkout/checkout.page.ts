@@ -18,6 +18,11 @@ export class CheckoutPage implements OnInit
   public objAlternativesArray:any=[];
   public objProvinceArray:any=[];
   public shippint_to_different_address:boolean=false;
+  public checkout_top_note:any='';
+  public selectedAreaOfDelivery: string = '';
+  public shippingAmount:string='';
+  public cart_total_with_delivery_area: any = '';
+  public cart_total: any = '';
 
   public checkoutForm = this.fb.group({
     billing_delivery_location: ['', Validators.required],
@@ -54,24 +59,31 @@ export class CheckoutPage implements OnInit
     this.objDeliveryLocationsArray = [];
     this.objAlternativesArray=[];
     this.objProvinceArray=[];
-
+    this.shippingAmount ='';
+    this.cart_total='';
+    /*
 		await this.sendRequest.getNonce().then((response:any) => 
 		{	console.log(response);
 			this.nonce=response.nonce;
 		},
 		error => 
 		{});
-    /*
+    */
     await this.sendRequest.getCheckoutAlternatives().then(resultAlternative => 
     {	
-      this.objAlternativesArray=resultAlternative['additional_field']['additional_wooccm1']['options'];
+      if(resultAlternative['additional_field'].length > 0)
+      {
+        this.objAlternativesArray=resultAlternative['additional_field']['additional_wooccm1']['options'];
+      }
       this.objDeliveryLocationsArray=resultAlternative['delivery_location']['options'];
       this.objProvinceArray=resultAlternative['state_list'];
+      this.checkout_top_note=resultAlternative['checkout_top_note'];
     },
     error => 
     {
       console.log();
-    });*///CHECKOUT ALTERNATIVES,DELIVERY LOCATION,PROVINCE
+    });//CHECKOUT ALTERNATIVES,DELIVERY LOCATION,PROVINCE
+    console.log(this.objProvinceArray);
     this.cartArray = JSON.parse(localStorage.getItem('cart'));
     if(this.cartArray!=null && this.cartArray.length > 0)
     {
@@ -98,7 +110,8 @@ export class CheckoutPage implements OnInit
             quantity: product_qt
           }
           this.cartOrderArray.push(objForCart);
-        }        
+        }
+        this.cart_total+=this.cartArray[c].product_pr;
       }
     }
   }
@@ -117,5 +130,20 @@ export class CheckoutPage implements OnInit
       this.checkoutForm.controls['shipping_phone'].setValue("");
       this.checkoutForm.controls['shipping_email'].setValue("");
     }    
+  }
+
+  selectedDeliveryLocation(ev)
+  {
+    this.selectedAreaOfDelivery = ev.detail.value;
+    if(this.selectedAreaOfDelivery == "Outside Midstream Estate")
+    {
+      this.shippingAmount = "60";//TO MAKE SHIPPING FREE MAKE VALUE 0 HERE
+    }
+    else
+    {
+      this.shippingAmount = "30";//TO MAKE SHIPPING FREE MAKE VALUE 0 HERE
+    }
+    this.cart_total_with_delivery_area = Number(this.cart_total) + Number(this.shippingAmount);
+    console.log(this.cart_total_with_delivery_area);
   }
 }

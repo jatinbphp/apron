@@ -286,7 +286,7 @@ export class SendReceiveRequestsService
 	{	
 		return new Promise((resolve, reject) => 
 		{
-			this.http.get(this.api_url + "wp-json/midstream-api-checkout/fields/").subscribe((res: any) => 
+			this.http.get(this.api_url + "wp-json/apronbutchery-api-checkout/fields/").subscribe((res: any) => 
 			{
 				resolve(res);
 			},
