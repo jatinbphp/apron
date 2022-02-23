@@ -218,7 +218,7 @@ export class SendReceiveRequestsService
 	{	
 		const alert = await this.alertCtrl.create(
 		{
-		header: 'THE APRON',
+		//header: 'THE APRON',
 		message: message,
 		buttons: 
 		[
