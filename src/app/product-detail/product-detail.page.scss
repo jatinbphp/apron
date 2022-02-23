@@ -141,6 +141,12 @@ ion-content {
 						    line-height: 36px;
 						    font-size: 18px;
 				            box-shadow: 0px 3px 3.5px rgba(0,0,0,0.3);
+				            --background-activated: #ffffff;
+			                --background-focused: #ffffff;
+			                --background-hover: #ffffff;
+			                --color-activated: #000000;
+			                --color-focused: #000000;
+			                --color-hover: #000000;
 				            ion-icon {}
 				            svg {
 				                width: 20px;
@@ -210,6 +216,16 @@ ion-content {
 									margin: 0px auto 14px;
 									font-size: 14px;
 									line-height: 14px;
+								}
+								ion-button {
+									&.cart-icon-btn {
+										--background-activated: #000000;
+						                --background-focused: #000000;
+						                --background-hover: #000000;
+						                --color-activated: #ffffff;
+						                --color-focused: #ffffff;
+						                --color-hover: #ffffff;
+									}
 								}
 							}
 						}

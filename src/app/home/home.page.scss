@@ -1,5 +1,9 @@
 ion-header {
-	ion-toolbar {}
+	ion-toolbar {
+		ion-buttons {
+			padding-left: 6px;
+		}
+	}
 }
 ion-content {
 	--background: transparent;
@@ -47,6 +51,16 @@ ion-content {
 										// min-height: 32px;
 										font-size: 14px;
 										line-height: 14px;
+									}
+									ion-button {
+										&.cart-icon-btn {
+											--background-activated: #000000;
+							                --background-focused: #000000;
+							                --background-hover: #000000;
+							                --color-activated: #ffffff;
+							                --color-focused: #ffffff;
+							                --color-hover: #ffffff;
+										}
 									}
 								}
 							}

@@ -5,22 +5,27 @@
         <ion-list id="inbox-list">
           <!-- <ion-list-header>Inbox</ion-list-header>
           <ion-note>hi@ionicframework.com</ion-note> -->
-          <ion-list-header>
-            <div class="logo-close">
-              <img class="logo-main" src="../../assets/images/main-logo.svg">
-              <ion-button (click)="closeMenu()"><ion-icon name="close-outline"></ion-icon></ion-button>
-            </div>
-          </ion-list-header>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item *ngIf="p.show == 1 && p.is_function == 0" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
-            </ion-item>
-            <ion-item *ngIf="p.show == 1 && p.is_function == 1 && p.title == 'Logout'" (click)="Logout()" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
+          <div class="top-cnt">
+            <ion-list-header>
+              <div class="logo-close">
+                <img class="logo-main" src="../../assets/images/main-logo.svg">
+                <ion-button (click)="closeMenu()"><ion-icon name="close-outline"></ion-icon></ion-button>
+              </div>
+            </ion-list-header>
+            <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+              <ion-item *ngIf="p.show == 1 && p.is_function == 0" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+                <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+                <ion-label>{{ p.title }}</ion-label>
+              </ion-item>
+              <ion-item *ngIf="p.show == 1 && p.is_function == 1 && p.title == 'Logout'" (click)="Logout()" lines="none" detail="false" routerLinkActive="selected">
+                <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+                <ion-label>{{ p.title }}</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </div>
+          <div class="bottom-cnt">
+            <ion-text>Version 1.0</ion-text>
+          </div>
         </ion-list>
         <!--<ion-list id="labels-list">
           <ion-list-header>Labels</ion-list-header>

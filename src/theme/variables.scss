@@ -44,12 +44,12 @@
   --ion-color-warning-tint: #ffca22;
 
   /** danger **/
-  --ion-color-danger: #eb445a;
-  --ion-color-danger-rgb: 235, 68, 90;
+  --ion-color-danger: #D12031;
+  --ion-color-danger-rgb: 209,32,49;
   --ion-color-danger-contrast: #ffffff;
   --ion-color-danger-contrast-rgb: 255, 255, 255;
-  --ion-color-danger-shade: #cf3c4f;
-  --ion-color-danger-tint: #ed576b;
+  --ion-color-danger-shade: #b81c2b;
+  --ion-color-danger-tint: #d63646;
 
   /** dark **/
   --ion-color-dark: #222428;
@@ -237,15 +237,15 @@
 
 // below-css-for-on-click-ionic-background-color-remove
 .button-solid {
-    --background-activated: transparent;
+    /*--background-activated: transparent;
     --background-focused: transparent;
-    --background-hover: transparent;
+    --background-hover: transparent;*/
     --background-activated-opacity: 1;
     --background-focused-opacity: 1;
     --background-hover-opacity: 1;
-    --color-activated: #000000;
+    /*--color-activated: #000000;
     --color-focused: #000000;
-    --color-hover: #000000;
+    --color-hover: #000000;*/
 }
 // above-css-for-on-click-ionic-background-color-remove
 

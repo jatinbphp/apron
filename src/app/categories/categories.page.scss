@@ -93,7 +93,14 @@ ion-content {
 											}
 										}
 										ion-button {
-											&.cart-icon-btn {}
+											&.cart-icon-btn {
+												--background-activated: #000000;
+								                --background-focused: #000000;
+								                --background-hover: #000000;
+								                --color-activated: #ffffff;
+								                --color-focused: #ffffff;
+								                --color-hover: #ffffff;
+											}
 										}
 									}
 								}
@@ -133,6 +140,12 @@ ion-content {
 	                --padding-start: 20px;
 	                --padding-end: 20px;
 	                position: relative;
+	                --background-activated: #D12031;
+	                --background-focused: #D12031;
+	                --background-hover: #D12031;
+	                --color-activated: #ffffff;
+	                --color-focused: #ffffff;
+	                --color-hover: #ffffff;
 				}
 			}
 		}
