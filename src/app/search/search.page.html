@@ -15,7 +15,25 @@
 
 <ion-content>
   <div class="main-div">
-    <form [formGroup]="searchForm" class="search-form" (ngSubmit)="searchAsAsked(searchForm.value)">
+    <form *ngIf="is_searched == true" class="search-form">
+    <ion-list>
+      <div class="title-main">
+        <h2>Search With</h2>
+      </div>
+      <ion-item lines="none" *ngIf="searched_text!=''">
+        <ion-text slot="start" color="danger">Search Text</ion-text>
+        <ion-text slot="end" color="danger">{{searched_text}}</ion-text>
+      </ion-item>
+      <ion-item lines="none" *ngIf="searched_category!=''">
+        <ion-text slot="start" color="danger">Search Category</ion-text>
+        <ion-text slot="end" color="danger">{{searched_category}}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-button color="primary" expand="block" (click)="ResetSearch()">Reset</ion-button>
+      </ion-item>
+    </ion-list>
+    </form>
+    <form *ngIf="is_searched == false" [formGroup]="searchForm" class="search-form" (ngSubmit)="searchAsAsked(searchForm.value)">
       <ion-list>
         <div class="title-main">
           <h2>Search With</h2>
@@ -23,7 +41,7 @@
         <ion-item>
           <ion-label position="floating">Categories</ion-label>
           <ion-select formControlName="search_category">
-            <ion-select-option *ngFor="let categories of categoryMain; let c = index;" value="{{categories.id}}">{{categories.name}}</ion-select-option>
+            <ion-select-option *ngFor="let categories of categoryMain; let c = index;" value="{{categories.id}}#{{categories.name}}">{{categories.name}}</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>
@@ -35,7 +53,7 @@
         </ion-item>
       </ion-list>
     </form>
-    <!--<p *ngIf="searchResultMain.length == 0 && is_searched == true" class="no-results">No results available.</p>-->
+    <p *ngIf="searchResultMain.length == 0 && is_searched == true" class="no-results">No results available.</p>
     <ion-list *ngIf="searchResultMain.length > 0">
       <ion-item lines="none">
         <ion-grid>

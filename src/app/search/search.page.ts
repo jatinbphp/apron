@@ -12,6 +12,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class SearchPage implements OnInit 
 {
   public is_searched:boolean=false;
+  public searched_text:any='';
+  public searched_category:any='';
   public categoryMain:any=[];
   public searchResultMain:any=[];
   public sort_by:string='title';
@@ -74,10 +76,15 @@ export class SearchPage implements OnInit
   {
     let search_text = (form.search_text) ? form.search_text : "";
     let search_category = (form.search_category) ? form.search_category : 0;
+    let split_search_category = search_category.split("#");
+    let searched_category_id = split_search_category[0];
+    let searched_category_nm = split_search_category[1];
     this.is_searched=true;
+    this.searched_text=search_text;
+    this.searched_category=searched_category_nm;
     let objSearch = {
       search_text:search_text,
-      search_category:search_category,
+      search_category:searched_category_id,
       sort_by:this.sort_by,
       order_by:this.order_by
     }
@@ -152,5 +159,14 @@ export class SearchPage implements OnInit
       is_cart_has_item_within: true,
       number_of_products_in_cart:this.cartArray.length
     });//THIS OBSERVABLE IS USED TO SHOW QUANTITY ON HEADER
+  }
+
+  ResetSearch()
+  {
+    this.is_searched=false;
+    this.searched_text="";
+    this.searched_category=false;
+    this.searchResultMain=[];
+    this.searchForm.reset();
   }
 }
