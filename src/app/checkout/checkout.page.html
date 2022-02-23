@@ -1,0 +1,170 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>checkout</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="main-div">
+  <form [formGroup]="checkoutForm" (ngSubmit)="checkoutAndPay(checkoutForm.value)">
+    <ion-list lines="none">          
+      <ion-item no-line>
+        <ion-label position="floating">First Name<span>*</span></ion-label>
+        <ion-input type="text" formControlName="billing_first_name"></ion-input>       
+      </ion-item>
+      <ion-item no-line>
+        <ion-label position="floating">Last Name<span>*</span></ion-label>
+        <ion-input type="text" formControlName="billing_last_name"></ion-input>       
+      </ion-item>
+      <!--<ion-item no-line>
+        <ion-label position="floating">Delivery Location</ion-label>
+        <ion-select formControlName="billing_delivery_location" placeholder="Please select area">
+          <ion-select-option *ngFor="let deliverylocation of objDeliveryLocationsArray | keyvalue" value="{{deliverylocation.value}}">{{deliverylocation.value}}</ion-select-option>            
+        </ion-select>
+      </ion-item>-->
+      <ion-radio-group formControlName="billing_delivery_location" (ionChange)="selectedDeliveryLocation($event)">
+        <ion-list-header>
+          <ion-label>* Please select area</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let deliverylocation of objDeliveryLocationsArray | keyvalue">
+          <ion-label>{{deliverylocation.value}}</ion-label>
+          <ion-radio slot="start" value="{{deliverylocation.value}}"></ion-radio>
+        </ion-item>          
+      </ion-radio-group>
+      <ion-item no-line>
+        <ion-label position="floating">Street Address<span>*</span></ion-label>
+        <ion-input type="text" formControlName="billing_address"></ion-input>       
+      </ion-item>
+      <ion-item no-line>
+        <ion-label position="floating">Town / City<span>*</span></ion-label>
+        <ion-input type="text" formControlName="billing_city"></ion-input>       
+      </ion-item>        
+      <ion-item no-line>
+        <ion-label position="floating">Province<span>*</span></ion-label>
+        <ion-select formControlName="billing_province" placeholder="Please select option" selectedText="{{userProvince}}">
+          <ion-select-option *ngFor="let provinceoption of objProvinceArray | keyvalue" value="{{provinceoption.key}}">{{provinceoption.value}}</ion-select-option>            
+        </ion-select>
+      </ion-item>
+      <ion-radio-group formControlName="billing_province">
+        <ion-list-header>
+          <ion-label>Province</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let provinceoption of objProvinceArray | keyvalue">
+          <ion-label>{{provinceoption.value}}</ion-label>
+          <ion-radio slot="start" value="{{provinceoption.key}}"></ion-radio>
+        </ion-item>          
+      </ion-radio-group>
+      <ion-item no-line>
+        <ion-label position="floating">Postcode / Zip<span>*</span></ion-label>
+        <ion-input type="number" formControlName="billing_zipcode"></ion-input>       
+      </ion-item>
+      <ion-item no-line>
+        <ion-label position="floating">Phone<span>*</span></ion-label>
+        <ion-input type="tel" formControlName="billing_phone"></ion-input>       
+      </ion-item>
+      <ion-item no-line>
+        <ion-label position="floating">Email Address<span>*</span></ion-label>
+        <ion-input type="email" formControlName="billing_email"></ion-input>       
+      </ion-item> 
+      <ion-item no-line (click)="show_hide_shipping()"> 
+        <ion-checkbox [(ngModel)]="shippint_to_different_address" [ngModelOptions]="{standalone: true}"></ion-checkbox>
+        <ion-label >Deliver to a different Address?</ion-label>               
+      </ion-item>
+      <!--SHIPPING ADDRESS-->
+      <ion-item no-line *ngIf="this.shippint_to_different_address == true">
+        <ion-label position="floating">First Name<span>*</span></ion-label>
+        <ion-input type="text" formControlName="shipping_first_name"></ion-input>       
+      </ion-item>
+      <ion-item no-line *ngIf="this.shippint_to_different_address == true">
+        <ion-label position="floating">Last Name<span>*</span></ion-label>
+        <ion-input type="text" formControlName="shipping_last_name"></ion-input>       
+      </ion-item>
+      <ion-item no-line *ngIf="this.shippint_to_different_address == true">
+        <ion-label position="floating">Street Address<span>*</span></ion-label>
+        <ion-input type="text" formControlName="shipping_address"></ion-input>       
+      </ion-item>
+      <ion-item no-line *ngIf="this.shippint_to_different_address == true">
+        <ion-label position="floating">Town / City<span>*</span></ion-label>
+        <ion-input type="text" formControlName="shipping_city"></ion-input>       
+      </ion-item>
+      <ion-item no-line *ngIf="this.shippint_to_different_address == true">
+        <ion-label position="floating">Province<span>*</span></ion-label>
+        <ion-select formControlName="shipping_province" placeholder="Please select option">
+          <ion-select-option *ngFor="let provinceoption of objProvinceArray | keyvalue" value="{{provinceoption.key}}">{{provinceoption.value}}</ion-select-option>            
+        </ion-select>
+      </ion-item>
+      <ion-radio-group formControlName="shipping_province" *ngIf="this.shippint_to_different_address == true">
+        <ion-list-header>
+          <ion-label>Province</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let provinceoption of objProvinceArray | keyvalue">
+          <ion-label>{{provinceoption.value}}</ion-label>
+          <ion-radio slot="start" value="{{provinceoption.key}}"></ion-radio>
+        </ion-item>          
+      </ion-radio-group>
+      <ion-item no-line *ngIf="this.shippint_to_different_address == true">
+        <ion-label position="floating">Postcode / Zip<span>*</span></ion-label>
+        <ion-input type="number" formControlName="shipping_zipcode"></ion-input>       
+      </ion-item>
+      <ion-item no-line *ngIf="this.shippint_to_different_address == true">
+        <ion-label position="floating">Phone<span>*</span></ion-label>
+        <ion-input type="tel" formControlName="shipping_phone"></ion-input>       
+      </ion-item>
+      <ion-item no-line *ngIf="this.shippint_to_different_address == true">
+        <ion-label position="floating">Email Address<span>*</span></ion-label>
+        <ion-input type="email" formControlName="shipping_email"></ion-input>       
+      </ion-item>        
+      <!--SHIPPING ADDRESS--> 
+      <ion-item no-line>
+        <ion-label position="floating">Order Notes (Optional)</ion-label>  
+        <ion-textarea rows="5" formControlName="billing_order_notes"></ion-textarea>
+      </ion-item>      
+      <!--PAYMENT METHOD--> 
+      <ion-input type="hidden" formControlName="payment_method" *ngIf="doesPaymentMethodNeedToShow == false"></ion-input>       
+      <ion-radio-group formControlName="payment_method" no-padding *ngIf="doesPaymentMethodNeedToShow == true">
+        <ion-list-header no-padding>
+          <ion-label>* Select payment type to proceed</ion-label>
+        </ion-list-header>
+        <ion-item no-padding>
+          <ion-label>CARD SWIPE on delivery</ion-label>
+          <ion-radio slot="start" value="cod"></ion-radio>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label>Credit Card, Instant EFT and ZAPPER</ion-label>
+          <ion-radio slot="start" value="paynow"></ion-radio>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label>Transaction Junction</ion-label>
+          <ion-radio slot="start" value="transactionJunction"></ion-radio>
+        </ion-item>        
+      </ion-radio-group>      
+    </ion-list>
+    <h2 *ngIf="objOrderArray.length > 0 && (paymentMethodID == 'paynow' || paymentMethodID == 'eccentric' || paymentMethodID == 'transactionJunction')">Your Order</h2>
+    <ion-grid  *ngIf="objOrderArray.length > 0 && (paymentMethodID == 'paynow' || paymentMethodID == 'eccentric' || paymentMethodID == 'transactionJunction')">
+      <ion-row>      
+        <ion-col size="9">
+          <ion-thumbnail>
+            <ion-img src="../assets/groceries-foods-icon.png"></ion-img>
+          </ion-thumbnail>
+          <div>         
+            <div><label>Order No.:</label> {{objOrderArray[0].id}}</div>
+            <div><label>Date:</label> {{objOrderArray[0].date_created | date: 'dd/MM/YYYY'}}<!--22/04/2021--></div>
+            <div><label>Status:</label> {{objOrderArray[0].status}}</div>
+          </div>       
+        </ion-col>
+        <ion-col size="3">         
+          {{objOrderArray.length}} items <br />{{objOrderArray[0].currency_symbol}}{{objOrderArray[0].total}}       
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="10">
+          <ion-input type="email" placeholder="Coupon code" formControlName="coupon_code"></ion-input>
+        </ion-col>
+        <ion-col size="2" (click)="validateCoupon(checkoutForm.value)">Apply</ion-col>
+      </ion-row>
+    </ion-grid>    
+    <p>&nbsp;</p>
+    <ion-button type="submit" [disabled]="!checkoutForm.valid" *ngIf="objOrderArray.length == 0">PLACE ORDER</ion-button>      
+  </form>
+  </div>
+</ion-content>

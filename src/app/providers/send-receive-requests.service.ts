@@ -282,6 +282,23 @@ export class SendReceiveRequestsService
 		});
 	}
 
+	getCheckoutAlternatives()
+	{	
+		return new Promise((resolve, reject) => 
+		{
+			this.http.get(this.api_url + "wp-json/midstream-api-checkout/fields/").subscribe((res: any) => 
+			{
+				resolve(res);
+			},
+	        err => 
+	        {
+				let errorMessage=this.getErrorMessage(err);
+				this.showMessage(errorMessage);
+				reject(errorMessage);
+	        });
+		});
+	}
+
   	getErrorMessage(err)
 	{	
 		if(err.error == null)
