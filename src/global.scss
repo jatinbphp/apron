@@ -135,7 +135,7 @@ app-login, app-register {
 }
 
 app-home, app-categories, app-product-detail, app-search,
-app-cart {
+app-cart, app-checkout {
     background-image: url(assets/images/texture-bck1.png);
     background-position: center center;
     background-size: cover;
@@ -415,10 +415,4 @@ ion-header {
         color: #ffffff;
         padding: 5px;
     }
-}
-
-ion-back-button .button-text {
-    display: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
 }

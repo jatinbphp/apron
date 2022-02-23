@@ -41,7 +41,8 @@
         </ion-item>        
         <ion-item no-line>
           <ion-label position="floating">Province<span>*</span></ion-label>
-          <ion-select formControlName="billing_province" placeholder="Please select option" selectedText="{{userProvince}}">
+          <!-- <ion-select formControlName="billing_province" placeholder="Please select option" selectedText="{{userProvince}}"> -->
+          <ion-select formControlName="billing_province" selectedText="{{userProvince}}">
             <ion-select-option *ngFor="let provinceoption of objProvinceArray | keyvalue" value="{{provinceoption.key}}">{{provinceoption.value}}</ion-select-option>            
           </ion-select>
         </ion-item>
@@ -59,7 +60,7 @@
         </ion-item> 
         <ion-item no-line (click)="show_hide_shipping()"> 
           <ion-checkbox [(ngModel)]="shippint_to_different_address" [ngModelOptions]="{standalone: true}"></ion-checkbox>
-          <ion-label >Deliver to a different Address?</ion-label>               
+          <ion-label>Deliver to a different Address?</ion-label>               
         </ion-item>
         <!--SHIPPING ADDRESS-->
         <ion-item no-line *ngIf="this.shippint_to_different_address == true">
@@ -80,7 +81,8 @@
         </ion-item>
         <ion-item no-line *ngIf="this.shippint_to_different_address == true">
           <ion-label position="floating">Province<span>*</span></ion-label>
-          <ion-select formControlName="shipping_province" placeholder="Please select option">
+          <!-- <ion-select formControlName="shipping_province" placeholder="Please select option"> -->
+          <ion-select formControlName="shipping_province">
             <ion-select-option *ngFor="let provinceoption of objProvinceArray | keyvalue" value="{{provinceoption.key}}">{{provinceoption.value}}</ion-select-option>            
           </ion-select>
         </ion-item>      
@@ -145,8 +147,8 @@
           <ion-col size="2" (click)="validateCoupon(checkoutForm.value)">Apply</ion-col>
         </ion-row>
       </ion-grid>    
-      <p>&nbsp;</p>
-      <ion-button type="submit" [disabled]="!checkoutForm.valid" *ngIf="objOrderArray.length == 0">PLACE ORDER</ion-button>      
+      <!-- <p>&nbsp;</p> -->
+      <ion-button color="primary" type="submit" [disabled]="!checkoutForm.valid" *ngIf="objOrderArray.length == 0">PLACE ORDER</ion-button>      
     </form>
   </div>
 </ion-content>
