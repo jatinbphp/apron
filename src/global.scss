@@ -421,3 +421,12 @@ ion-header {
         padding: 5px;
     }
 }
+
+ion-accordion-group{
+    ion-accordion {
+        .ion-accordion-toggle-icon {
+            color: var(--White);
+            margin: 0px;
+        }
+    }
+}

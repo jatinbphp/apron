@@ -13,9 +13,9 @@
   <div class="main-div">
     <p [innerHTML]="checkout_top_note"></p>
     <ion-accordion-group *ngIf="resultUserData.length == 0">
-      <ion-accordion value="colors" toggle-icon="arrow-down-circle">
+      <ion-accordion value="returning" toggle-icon="arrow-down-circle">
         <ion-item slot="header" class="accordian-title">
-          <ion-label slot="start">RETURNING CUSTOMER?</ion-label>
+          <ion-label slot="start">Returning Customer?</ion-label>
         </ion-item>
         <ion-list slot="content" class="login-form">
           <ion-item lines="none">
@@ -23,7 +23,7 @@
               <ion-list lines="none"> 
                 <ion-item no-line color="light">
                   <ion-input type="email" placeholder="EMAIL ADDRESS" formControlName="username" pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"></ion-input>
-                </ion-item>      
+                </ion-item>  
                 <ion-item no-line color="light">
                   <ion-input [type]="passwordType" placeholder="PASSWORD" formControlName="password"></ion-input>
                   <ion-icon [name]="passwordIcon" (click)='hideShowPassword()'></ion-icon>
@@ -34,11 +34,9 @@
           </ion-item>
         </ion-list>
       </ion-accordion>      
-    </ion-accordion-group>
-    <ion-accordion-group>
-      <ion-accordion value="colors" toggle-icon="arrow-down-circle">
+      <ion-accordion value="coupon" toggle-icon="arrow-down-circle">
         <ion-item slot="header" class="accordian-title">
-          <ion-label slot="start">HAVE A COUPON?</ion-label>
+          <ion-label slot="start">Have A Coupon?</ion-label>
         </ion-item>
         <ion-list slot="content" class="login-form">
           <ion-item lines="none">
@@ -54,7 +52,9 @@
         </ion-list>
       </ion-accordion>      
     </ion-accordion-group>
-    <h1>BILLING DETAILS</h1>
+    <div class="title-main">
+      <h2>Billing Details</h2>
+    </div>
     <form [formGroup]="checkoutForm" (ngSubmit)="PlaceOrder(checkoutForm.value)">
       <ion-list lines="none">      
         <ion-item no-line>
@@ -111,7 +111,7 @@
         </ion-item> 
         <ion-item no-line (click)="show_hide_shipping()"> 
           <ion-checkbox [(ngModel)]="shippint_to_different_address" [ngModelOptions]="{standalone: true}"></ion-checkbox>
-          <ion-label>SHIP TO A DIFFERENT ADDRESS</ion-label>               
+          <ion-label>Ship To A Different Address</ion-label>               
         </ion-item>
         <!--SHIPPING ADDRESS-->
         <ion-item no-line *ngIf="this.shippint_to_different_address == true">
