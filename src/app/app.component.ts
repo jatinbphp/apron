@@ -14,12 +14,13 @@ export class AppComponent
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home', is_function:0, show:1 },//[0]
     { title: 'Categories', url: '/categories-main', icon: 'fast-food', is_function:0, show:1 },//[1]
-    { title: 'My Orders', url: '#', icon: 'bag', is_function:0, show:0 },//[2]
-    { title: 'My Credits', url: '#', icon: 'card', is_function:0, show:0 },//[3]
-    { title: 'Contact', url: '#', icon: 'call', is_function:0, show:1 },//[4]
-    { title: 'Logout', url: '#', icon: 'log-out', is_function:1, show:0 },//[5]
-    //{ title: 'Login', url: '/login', icon: 'person', is_function:0, show:0 },//[6]
-    //{ title: 'Register', url: '/register', icon: 'person', is_function:0, show:0 },//[7]
+    { title: 'Search', url: '/search', icon: 'search', is_function:0, show:1 },//[2]
+    { title: 'My Orders', url: '#', icon: 'bag', is_function:0, show:0 },//[3]
+    { title: 'My Credits', url: '#', icon: 'card', is_function:0, show:0 },//[4]
+    { title: 'Contact', url: '#', icon: 'call', is_function:0, show:1 },//[5]
+    { title: 'Logout', url: '#', icon: 'log-out', is_function:1, show:0 },//[6]
+    //{ title: 'Login', url: '/login', icon: 'person', is_function:0, show:0 },//[7]
+    //{ title: 'Register', url: '/register', icon: 'person', is_function:0, show:0 },//[8]
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   
@@ -30,15 +31,15 @@ export class AppComponent
 			this.is_user_login=dataLogin.is_user_login;
       if(this.is_user_login == true)
       {
-        this.appPages[2]['show']=1;
         this.appPages[3]['show']=1;
-        this.appPages[5]['show']=1;
+        this.appPages[4]['show']=1;
+        this.appPages[6]['show']=1;
       }
       if(this.is_user_login == false)
       {
-        this.appPages[2]['show']=0;
         this.appPages[3]['show']=0;
-        this.appPages[5]['show']=0;
+        this.appPages[4]['show']=0;
+        this.appPages[6]['show']=0;
       }
 		});//THIS OBSERVABLE IS USED TO CHECK USER LOGIN
     this.InitializeAPP();
@@ -51,15 +52,15 @@ export class AppComponent
     this.userArray = (this.userArray) ? JSON.parse(this.userArray) : [];
     if(this.userArray['user_id'] > 0)
     {
-      this.appPages[2]['show']=1;
       this.appPages[3]['show']=1;
-      this.appPages[5]['show']=1;
+      this.appPages[4]['show']=1;
+      this.appPages[6]['show']=1;
     }
     else
     {
-      this.appPages[2]['show']=0;
       this.appPages[3]['show']=0;
-      this.appPages[5]['show']=0;
+      this.appPages[4]['show']=0;
+      this.appPages[6]['show']=0;
     }
   }
 
