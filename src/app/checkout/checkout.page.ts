@@ -13,6 +13,7 @@ export class CheckoutPage implements OnInit
   public nonce:string='';
   public cartArray:any=[];
   public cartOrderArray:any=[];
+  public objOrder:any=[];
   public objOrderArray:any=[];
   public objDeliveryLocationsArray:any=[];
   public objAlternativesArray:any=[];
@@ -31,6 +32,7 @@ export class CheckoutPage implements OnInit
   public shippingObj:any=[];
   public objCoupan:any=[];
   public objCoupanArray:any=[];
+  public userTotalCredit:number = 0;
 
   public userArray:any=[]; 
   public resultData:any=[];
@@ -82,6 +84,7 @@ export class CheckoutPage implements OnInit
 
   async ionViewWillEnter() 
 	{
+    this.objOrder = [];
     this.objOrderArray = [];
     this.objDeliveryLocationsArray = [];
     this.objAlternativesArray=[];
@@ -316,8 +319,6 @@ export class CheckoutPage implements OnInit
 
   async PlaceOrder(form)
   {
-    this.sendRequest.showMessage("We will proceed this in next update");
-    return false;
     //LOADER
 		const loading = await this.loadingCtrl.create({
 			spinner: null,
@@ -331,6 +332,7 @@ export class CheckoutPage implements OnInit
     
     let payment_method = (form.payment_method) ? form.payment_method : "";
     let is_alternative_product_allow = (form.is_alternative_product_allow) ? form.is_alternative_product_allow : "";
+    let billing_order_notes = (form.billing_order_notes) ? form.billing_order_notes : "";
     //BILLING DETAIL
     let billing_delivery_location = (form.billing_delivery_location) ? form.billing_delivery_location : "";    
     let billing_first_name = (form.billing_first_name) ? form.billing_first_name : "";
@@ -425,6 +427,59 @@ export class CheckoutPage implements OnInit
       }
     }//DELIVERY TO DIFFERENT ADDRESS
     this.shippingObj = [];
+    let TempShippingObj = 
+    {
+      method_id: "flat_rate",
+      method_title: "Flat Rate",
+      total: this.shippingAmount
+    }
+    this.shippingObj.push(TempShippingObj);
+    let orderObj = 
+    {
+      customer_id:this.userArray['user_id'],
+      payment_method:this.paymentMethodID,
+      payment_method_title: this.paymentMethod,
+      status:this.paymentStatus,
+      set_paid: false,
+      billing: this.objBilling,
+      shipping: this.objShipping,
+      line_items:this.cartOrderArray,
+      shipping_lines: this.shippingObj,
+      customer_note: billing_order_notes,
+      coupon_lines: this.objCoupanArray,
+      fee_lines: [
+        {
+          name: "Credits",
+          total: "-"+this.userTotalCredit,
+          tax_status : "none"
+        }
+      ],
+      meta_data: [
+        {
+          'key': '_billing_wooccm11',
+          'value': billing_delivery_location,
+        },
+        {
+          'key': '_additional_wooccm1',
+          'value': is_alternative_product_allow,
+        }
+      ]      
+    }//REF::https://woocommerce.github.io/woocommerce-rest-api-docs/?javascript#create-an-order
+
+    await this.sendRequest.createAnOrder(orderObj).then(result => 
+    {	
+      loading.dismiss();//DISMISS LOADER
+      this.objOrder=result;
+      this.objOrderArray.push(this.objOrder);
+      this.sendRequest.showMessage("Order placed successfully! <br />Please continue with PAY NOW.");
+      this.sendRequest.router.navigate(['/home']);
+      localStorage.removeItem('cart');//REMOVE CART BECAUSE IF USER WENT TO ANOTHER PAGE THEN, THE SAME ORDER WILL BE PLACED AGAIN WITH ALL NEW ORDER ID
+    },
+    error => 
+    {
+      loading.dismiss();//DISMISS LOADER
+      console.log();
+    });
   }
 
   async applyCoupon(form)
