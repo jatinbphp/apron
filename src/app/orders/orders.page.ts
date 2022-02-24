@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { SendReceiveRequestsService } from '../providers/send-receive-requests.service';
+import { NavigationExtras } from "@angular/router";
 
 @Component({
   selector: 'app-orders',
@@ -10,6 +11,7 @@ import { SendReceiveRequestsService } from '../providers/send-receive-requests.s
 
 export class OrdersPage implements OnInit 
 {
+  public queryString: any=[];
   public userArray:any=[];
   public cartArray:any=[];
   public myOrders:any=[];
@@ -63,4 +65,20 @@ export class OrdersPage implements OnInit
     }
   }
 
+  OrderDetails(order_id)
+  {
+    this.queryString = 
+    {
+      order_id:order_id
+    };
+
+    let navigationExtras: NavigationExtras = 
+    {
+      queryParams: 
+      {
+        special: JSON.stringify(this.queryString)
+      }
+    };
+    this.sendRequest.router.navigate(['/tabs/order-detail'], navigationExtras);
+  }
 }

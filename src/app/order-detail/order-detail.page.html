@@ -1,0 +1,156 @@
+<ion-header class="most-used-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button auto-hide="false" slot="start" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Orders Detail</ion-title>
+    <ion-button slot="end" routerDirection="root" routerLink="/search">
+      <ion-icon name="search-outline"></ion-icon>
+    </ion-button>
+    <ion-button slot="end" class="cart-btn" routerDirection="root" routerLink="/cart">
+      <img src="../../assets/images/cart-trolley-icon1.svg">
+      <span class="cart-item-no">{{number_of_products_in_cart}}</span>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ord-dt">
+    <div class="box">
+      <span>Order No.</span>{{orderDetails.id}}
+    </div>
+    <div class="box"> 
+      <span>Ordered</span>{{orderDetails.date_created | date: 'dd/MM/YYYY'}}
+    </div>
+  </div>
+  <div class="delivered">
+    <img src="../../assets/delivered.png" alt="">
+    <div>{{orderDetails.status}}</div>
+  </div>
+  <div class="prod-dt ion-padding">
+    <h6>Product Details</h6>
+    <ion-grid class="no-padding">
+      <ion-row class="head">
+        <ion-col >
+          <div>
+           Product
+          </div>
+        </ion-col>
+        <ion-col class="price">
+          <div>          
+          </div>
+        </ion-col>
+      </ion-row>
+      <!--DYNAMIC-->
+      <ion-row *ngFor="let products of orderDetails.line_items; let i=index;">
+        <ion-col size="" >
+          <div>
+            {{products.name}} x {{products.quantity}}
+          </div>
+        </ion-col>
+        <ion-col  class="price">
+          <div>
+            R{{products.subtotal}}
+          </div>
+        </ion-col>
+      </ion-row>
+      <!--DYNAMIC-->
+      <ion-row class="total-row">
+        <ion-col>
+          <div>
+            Discount
+          </div>
+        </ion-col>
+        <ion-col class="price">
+          <div>
+            R{{orderDetails.discount_total}}
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="total-row">
+        <ion-col>
+          <div>
+            Credit
+          </div>
+        </ion-col>
+        <ion-col class="price">
+          <div>
+            R{{totalCreditUsed}}
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="total-row">
+        <ion-col>
+          <div>
+            Shipping
+          </div>
+        </ion-col>
+        <ion-col class="price">
+          <div>
+            R{{orderDetails.shipping_total}}
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="total-row" *ngIf="isOrderHasTax==true">
+        <ion-col>
+          <!--<div>
+            Tax
+          </div>-->
+          <div *ngFor="let taxes of orderDetails.tax_lines;">
+            <span [ngClass]="{'hideme' : taxes.tax_total == 0}" [showHideRow(taxes.tax_total)]>{{taxes.label}}</span>
+          </div>
+        </ion-col>
+        <ion-col class="price">
+          <!--<div>&nbsp;</div>-->
+          <div *ngFor="let taxes of orderDetails.tax_lines;">
+            <span [ngClass]="{'hideme' : taxes.tax_total == 0}" [showHideRow(taxes.tax_total)]>R{{taxes.tax_total}}</span>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="total-row">
+        <ion-col>
+          <div>
+            Total
+          </div>
+        </ion-col>
+        <ion-col class="price">
+          <div>
+            R{{orderDetails.total}}
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <!--ALTERNATIVES-->
+  <div class="prod-dt ion-padding">
+    <h6>Additional information</h6>
+    <ion-grid class="no-padding">
+      <ion-row class="head">
+        <ion-col size="12">Information</ion-col>        
+      </ion-row>
+      <!--DYNAMIC-->
+      <ion-row *ngFor="let metadata of orderDetails.meta_data; let m=index;">
+        <ion-col size="5" *ngIf="metadata.key=='_additional_wooccm1' && metadata.value != null && metadata.value != undefined && metadata.value != ''">Alternative product option</ion-col>
+        <ion-col size="7" *ngIf="metadata.key=='_additional_wooccm1' && metadata.value != null && metadata.value != undefined && metadata.value != ''">{{metadata.value}}</ion-col>
+        <ion-col size="5" *ngIf="metadata.key=='_billing_wooccm11' && metadata.value != null && metadata.value != undefined && metadata.value != ''">Delivery location</ion-col>
+        <ion-col size="7" *ngIf="metadata.key=='_billing_wooccm11' && metadata.value != null && metadata.value != undefined && metadata.value != ''">{{metadata.value}}</ion-col>        
+      </ion-row>
+      <ion-row>
+        <ion-col size="5" *ngIf="orderDetails.payment_method_title != null && orderDetails.payment_method_title != undefined && orderDetails.payment_method_title != ''">Payment method selected</ion-col>
+        <ion-col size="7" *ngIf="orderDetails.payment_method_title != null && orderDetails.payment_method_title != undefined && orderDetails.payment_method_title != ''">{{orderDetails.payment_method_title}}</ion-col>
+        <!--<ion-col size="5" *ngIf="orderDetails.transaction_id != null && orderDetails.transaction_id != undefined && orderDetails.transaction_id != ''">Transaction ID</ion-col>
+        <ion-col size="7" *ngIf="orderDetails.transaction_id != null && orderDetails.transaction_id != undefined && orderDetails.transaction_id != ''">{{orderDetails.transaction_id}}</ion-col>-->
+      </ion-row>
+      <!--DYNAMIC-->
+    </ion-grid>
+  </div>
+  <!--ALTERNATIVES-->
+  <div class="ord-dt ord-address">
+    <div class="box">
+      <span>Shipping Address</span>{{shippingDetails.address_1}},<br />{{shippingDetails.city}}, {{shippingDetails.postcode}}<br />{{shippingDetails.state}}<br />South Africa
+    </div>
+    <div class="box"> 
+      <span>Billing Address</span>{{billingDetails.address_1}},<br />{{billingDetails.city}}, {{billingDetails.postcode}}<br />{{billingDetails.state}}<br />South Africa<br />{{billingDetails.phone}}<br /><a href="mailto:{{billingDetails.email}}">{{billingDetails.email}}</a>
+    </div>
+  </div>
+</ion-content>
