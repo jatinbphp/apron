@@ -12,8 +12,8 @@
 <ion-content>
   <div class="main-div">
     <p [innerHTML]="checkout_top_note"></p>
-    <ion-accordion-group *ngIf="resultUserData.length == 0">
-      <ion-accordion value="returning" toggle-icon="arrow-down-circle">
+    <ion-accordion-group>
+      <ion-accordion value="returning" toggle-icon="arrow-down-circle" *ngIf="resultUserData.length == 0">
         <ion-item slot="header" class="accordian-title">
           <ion-label slot="start">Returning Customer?</ion-label>
         </ion-item>

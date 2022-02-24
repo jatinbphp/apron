@@ -100,7 +100,7 @@ export class CheckoutPage implements OnInit
       await this.sendRequest.getUserDetailByID(this.userArray['user_id']).then(resultUserData => 
       {
         this.resultUserData = resultUserData;
-        if(this.resultUserData.length > 0)
+        if(this.resultUserData['id'] > 0)
         {
           this.resultUserBillingData = this.resultUserData['billing'];
           this.resultUserShippingData = this.resultUserData['shipping'];
@@ -241,7 +241,7 @@ export class CheckoutPage implements OnInit
     await this.sendRequest.getUserDetailByID(this.resultData['data']['ID']).then(resultUserData => 
     {
       this.resultUserData = resultUserData;
-      if(this.resultUserData.length > 0)
+      if(this.resultUserData['id'] > 0)
       {
         this.resultUserBillingData = this.resultUserData['billing'];
         this.resultUserShippingData = this.resultUserData['shipping'];
@@ -316,6 +316,8 @@ export class CheckoutPage implements OnInit
 
   async PlaceOrder(form)
   {
+    this.sendRequest.showMessage("We will proceed this in next update");
+    return false;
     //LOADER
 		const loading = await this.loadingCtrl.create({
 			spinner: null,
@@ -427,6 +429,8 @@ export class CheckoutPage implements OnInit
 
   async applyCoupon(form)
   {
+    this.sendRequest.showMessage("We will proceed this in next update");
+    return false;
     //LOADER
 		const loading = await this.loadingCtrl.create({
 			spinner: null,

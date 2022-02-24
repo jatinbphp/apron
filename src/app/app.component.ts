@@ -13,7 +13,7 @@ export class AppComponent
   public userArray:any=[]; 
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home', is_function:0, show:1 },//[0]
-    { title: 'Categories', url: '/categories', icon: 'fast-food', is_function:0, show:1 },//[1]
+    { title: 'Categories', url: '/categories-main', icon: 'fast-food', is_function:0, show:1 },//[1]
     { title: 'My Orders', url: '#', icon: 'bag', is_function:0, show:0 },//[2]
     { title: 'My Credits', url: '#', icon: 'card', is_function:0, show:0 },//[3]
     { title: 'Contact', url: '#', icon: 'call', is_function:0, show:1 },//[4]
