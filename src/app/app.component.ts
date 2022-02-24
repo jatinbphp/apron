@@ -15,7 +15,7 @@ export class AppComponent
     { title: 'Home', url: '/home', icon: 'home', is_function:0, show:1 },//[0]
     { title: 'Categories', url: '/categories-main', icon: 'fast-food', is_function:0, show:1 },//[1]
     { title: 'Search', url: '/search', icon: 'search', is_function:0, show:1 },//[2]
-    { title: 'My Orders', url: '#', icon: 'bag', is_function:0, show:0 },//[3]
+    { title: 'My Orders', url: '/orders', icon: 'bag', is_function:0, show:0 },//[3]
     { title: 'My Credits', url: '#', icon: 'card', is_function:0, show:0 },//[4]
     { title: 'Contact', url: '#', icon: 'call', is_function:0, show:1 },//[5]
     { title: 'Logout', url: '#', icon: 'log-out', is_function:1, show:0 },//[6]

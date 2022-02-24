@@ -358,6 +358,26 @@ export class SendReceiveRequestsService
 		});
 	}
 
+	getAllOrdersByUserID(userID)
+	{
+		return new Promise((resolve, reject) => 
+		{
+			let headers = this.getHeaderOptions();
+			
+			let params = new HttpParams().set("per_page", "100").set("page", "1").set("customer", userID).set("consumer_key", this.consumer_key).set("consumer_secret", this.consumer_secret);
+			this.http.get(this.api_url + "wp-json/wc/v3/orders", { headers: headers, params: params }).subscribe((res: any) => 
+			{
+				resolve(res);
+			},
+	        err => 
+	        {
+				let errorMessage=this.getErrorMessage(err);
+				//this.showMessage(errorMessage);
+				reject(errorMessage);
+	        });
+		});
+	}
+
   	getErrorMessage(err)
 	{	
 		if(err.error == null)

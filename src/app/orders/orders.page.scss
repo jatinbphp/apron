@@ -1,0 +1,12 @@
+ion-content {
+    --background: transparent;
+    .no-results{
+        // color: #D12031;
+        width: 100%;
+        font-size: 16px;
+        line-height: normal;
+        font-family: var(--font-Roboto-Regular);
+        color: var(--White);
+        text-align: center;
+    }
+}

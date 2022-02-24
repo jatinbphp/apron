@@ -1,0 +1,36 @@
+<ion-header class="most-used-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false" slot="start"><img class="logo-main" src="../../assets/images/menu-icon.svg"></ion-menu-button>     
+    </ion-buttons>
+    <ion-title>Orders</ion-title>
+    <ion-button slot="end" routerDirection="root" routerLink="/search">
+      <ion-icon name="search-outline"></ion-icon>
+    </ion-button>
+    <ion-button slot="end" class="cart-btn" routerDirection="root" routerLink="/cart">
+      <img src="../../assets/images/cart-icon1.png">
+      <span class="cart-item-no">{{number_of_products_in_cart}}</span>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <p *ngIf="myOrders.length == 0" class="no-results">No orders found.</p>
+  <ion-grid *ngIf="myOrders.length > 0">
+    <ion-row *ngFor="let orders of myOrders; let i = index;">      
+      <ion-col size="9">
+        <ion-thumbnail>
+          <ion-img src="../assets/groceries-foods-icon.png"></ion-img>
+        </ion-thumbnail>
+        <div>         
+          <div><label>Order No.:</label> {{orders.id}}</div>
+          <div><label>Date:</label> {{orders.date_created | date: 'dd/MM/YYYY'}}<!--22/04/2021--></div>
+          <div><label>Status:</label> {{orders.status}}</div>
+        </div>       
+      </ion-col>
+      <ion-col size="3">         
+        {{orders.line_items.length}} items <br />R{{orders.total}} <br /><button (click)="goToOrderDetails(orders.id)">View All</button>    
+      </ion-col>
+    </ion-row>    
+  </ion-grid>
+</ion-content>
