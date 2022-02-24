@@ -299,6 +299,45 @@ export class SendReceiveRequestsService
 		});
 	}
 
+	getUserDetailByID(user_id)
+	{
+		return new Promise((resolve, reject) => 
+		{
+			let headers = this.getHeaderOptions();			
+			let params = new HttpParams().set("consumer_key", this.consumer_key).set("consumer_secret", this.consumer_secret);
+			this.http.get(this.api_url + "wp-json/wc/v3/customers/"+user_id, { headers: headers, params: params }).subscribe((res: any) => 
+			{
+				resolve(res);
+			},
+	        err => 
+	        {
+				let errorMessage=this.getErrorMessage(err);
+				//this.showMessage(errorMessage);
+				reject(errorMessage);
+	        });
+		});
+	}
+
+	validateCoupon(couponCode)
+	{
+		return new Promise((resolve, reject) => 
+		{
+			let headers = this.getHeaderOptions();
+
+			let params = new HttpParams().set("code", couponCode).set("consumer_key", this.consumer_key).set("consumer_secret", this.consumer_secret);
+			this.http.get(this.api_url + "wp-json/wc/v3/coupons/", { headers: headers, params: params }).subscribe((res: any) => 
+			{
+				resolve(res);
+			},
+	        err => 
+	        {
+				let errorMessage=this.getErrorMessage(err);
+				//this.showMessage(errorMessage);
+				reject(errorMessage);
+	        });
+		});
+	}//REFERENCE::http://www.domainname.com/wp-json/wc/v3/coupons/?code=your_coupon_code
+
   	getErrorMessage(err)
 	{	
 		if(err.error == null)

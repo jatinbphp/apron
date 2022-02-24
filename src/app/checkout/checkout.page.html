@@ -12,7 +12,50 @@
 <ion-content>
   <div class="main-div">
     <p [innerHTML]="checkout_top_note"></p>
-    <form [formGroup]="checkoutForm" (ngSubmit)="checkoutAndPay(checkoutForm.value)">
+    <ion-accordion-group *ngIf="resultUserData.length == 0">
+      <ion-accordion value="colors" toggle-icon="arrow-down-circle">
+        <ion-item slot="header" class="accordian-title">
+          <ion-label slot="start">RETURNING CUSTOMER?</ion-label>
+        </ion-item>
+        <ion-list slot="content" class="login-form">
+          <ion-item lines="none">
+            <form [formGroup]="loginForm" (ngSubmit)="makeMeLoggedin(loginForm.value)">
+              <ion-list lines="none"> 
+                <ion-item no-line color="light">
+                  <ion-input type="email" placeholder="EMAIL ADDRESS" formControlName="username" pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"></ion-input>
+                </ion-item>      
+                <ion-item no-line color="light">
+                  <ion-input [type]="passwordType" placeholder="PASSWORD" formControlName="password"></ion-input>
+                  <ion-icon [name]="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+                </ion-item>
+              </ion-list>
+              <ion-button type="submit" color="primary" expand="block" [disabled]="!loginForm.valid">SIGN IN</ion-button>
+            </form>
+          </ion-item>
+        </ion-list>
+      </ion-accordion>      
+    </ion-accordion-group>
+    <ion-accordion-group>
+      <ion-accordion value="colors" toggle-icon="arrow-down-circle">
+        <ion-item slot="header" class="accordian-title">
+          <ion-label slot="start">HAVE A COUPON?</ion-label>
+        </ion-item>
+        <ion-list slot="content" class="login-form">
+          <ion-item lines="none">
+            <form [formGroup]="couponForm" (ngSubmit)="applyCoupon(couponForm.value)">
+              <ion-list lines="none"> 
+                <ion-item no-line color="light">
+                  <ion-input type="text" placeholder="Coupon code" formControlName="coupon_code"></ion-input>
+                </ion-item>                
+              </ion-list>
+              <ion-button type="submit" color="primary" expand="block" [disabled]="!couponForm.valid">APPLY COUPON</ion-button>
+            </form>
+          </ion-item>
+        </ion-list>
+      </ion-accordion>      
+    </ion-accordion-group>
+    <h1>BILLING DETAILS</h1>
+    <form [formGroup]="checkoutForm" (ngSubmit)="PlaceOrder(checkoutForm.value)">
       <ion-list lines="none">      
         <ion-item no-line>
           <ion-label position="floating">First Name<span>*</span></ion-label>
@@ -57,10 +100,18 @@
         <ion-item no-line>
           <ion-label position="floating">Email Address<span>*</span></ion-label>
           <ion-input type="email" formControlName="billing_email"></ion-input>       
+        </ion-item>
+        <ion-item no-line *ngIf="resultUserData.length == 0">
+          <ion-label position="floating">Account username<span>*</span></ion-label>
+          <ion-input type="text" formControlName="username"></ion-input>       
+        </ion-item>
+        <ion-item no-line *ngIf="resultUserData.length == 0">
+          <ion-label position="floating">Create account password<span>*</span></ion-label>
+          <ion-input type="password" formControlName="password"></ion-input>       
         </ion-item> 
         <ion-item no-line (click)="show_hide_shipping()"> 
           <ion-checkbox [(ngModel)]="shippint_to_different_address" [ngModelOptions]="{standalone: true}"></ion-checkbox>
-          <ion-label>Deliver to a different Address?</ion-label>               
+          <ion-label>SHIP TO A DIFFERENT ADDRESS</ion-label>               
         </ion-item>
         <!--SHIPPING ADDRESS-->
         <ion-item no-line *ngIf="this.shippint_to_different_address == true">
@@ -104,50 +155,20 @@
           <ion-textarea rows="5" formControlName="billing_order_notes"></ion-textarea>
         </ion-item>      
         <!--PAYMENT METHOD--> 
-        <ion-input type="hidden" formControlName="payment_method" *ngIf="doesPaymentMethodNeedToShow == false"></ion-input>       
-        <ion-radio-group formControlName="payment_method" no-padding *ngIf="doesPaymentMethodNeedToShow == true">
+        <ion-radio-group formControlName="payment_method" no-padding>
           <ion-list-header no-padding>
             <ion-label>* Select payment type to proceed</ion-label>
           </ion-list-header>
           <ion-item no-padding>
-            <ion-label>CARD SWIPE on delivery</ion-label>
-            <ion-radio slot="start" value="cod"></ion-radio>
-          </ion-item>
-          <ion-item no-padding>
-            <ion-label>Credit Card, Instant EFT and ZAPPER</ion-label>
-            <ion-radio slot="start" value="paynow"></ion-radio>
-          </ion-item>
+            <ion-label>Secure online Payments via Netcash</ion-label>
+            <ion-radio slot="start" value="netcash"></ion-radio>
+          </ion-item>          
           <ion-item no-padding>
             <ion-label>Transaction Junction</ion-label>
-            <ion-radio slot="start" value="transactionJunction"></ion-radio>
+            <ion-radio slot="start" value="transactionjunction"></ion-radio>
           </ion-item>        
         </ion-radio-group>      
-      </ion-list>
-      <h2 *ngIf="objOrderArray.length > 0 && (paymentMethodID == 'paynow' || paymentMethodID == 'eccentric' || paymentMethodID == 'transactionJunction')">Your Order</h2>
-      <ion-grid  *ngIf="objOrderArray.length > 0 && (paymentMethodID == 'paynow' || paymentMethodID == 'eccentric' || paymentMethodID == 'transactionJunction')">
-        <ion-row>      
-          <ion-col size="9">
-            <ion-thumbnail>
-              <ion-img src="../assets/groceries-foods-icon.png"></ion-img>
-            </ion-thumbnail>
-            <div>         
-              <div><label>Order No.:</label> {{objOrderArray[0].id}}</div>
-              <div><label>Date:</label> {{objOrderArray[0].date_created | date: 'dd/MM/YYYY'}}<!--22/04/2021--></div>
-              <div><label>Status:</label> {{objOrderArray[0].status}}</div>
-            </div>       
-          </ion-col>
-          <ion-col size="3">         
-            {{objOrderArray.length}} items <br />{{objOrderArray[0].currency_symbol}}{{objOrderArray[0].total}}       
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="10">
-            <ion-input type="email" placeholder="Coupon code" formControlName="coupon_code"></ion-input>
-          </ion-col>
-          <ion-col size="2" (click)="validateCoupon(checkoutForm.value)">Apply</ion-col>
-        </ion-row>
-      </ion-grid>    
-      <!-- <p>&nbsp;</p> -->
+      </ion-list>      
       <ion-button color="primary" type="submit" [disabled]="!checkoutForm.valid" *ngIf="objOrderArray.length == 0">PLACE ORDER</ion-button>      
     </form>
   </div>
