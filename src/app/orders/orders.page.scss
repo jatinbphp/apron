@@ -1,12 +1,183 @@
+ion-header {
+    ion-toolbar {
+        padding-left: 15px;
+        ion-buttons {}
+    }
+}
 ion-content {
     --background: transparent;
-    .no-results{
-        // color: #D12031;
+    .main-div {
         width: 100%;
-        font-size: 16px;
-        line-height: normal;
-        font-family: var(--font-Roboto-Regular);
-        color: var(--White);
-        text-align: center;
+        padding: 25px;
+        .no-results{
+            // color: #D12031;
+            width: 100%;
+            font-size: 16px;
+            line-height: normal;
+            font-family: var(--font-Roboto-Regular);
+            color: var(--White);
+            text-align: center;
+        }
+        ion-grid {
+            width: 100%;
+            padding: 0px;
+            margin: 0px;
+            &.pro-horizontal-box-list {
+                display: flex;
+                flex-wrap: wrap;
+                padding: 0px;
+                margin: 0px;
+                ion-row {
+                    &.pro-horizontal-box {
+                        width: 100%;
+                        padding: 20px 10px 15px;
+                        margin: 0px 0px 20px;
+                        background-color: var(--White);
+                        border-radius: 0px 0px 10px 10px;
+                        box-shadow: 0px 3px 3.5px rgba(0,0,0,0.16);
+                        ion-col {
+                            h6 {
+                                width: 100%;
+                                font-size: 16px;
+                                line-height: normal;
+                                font-family: var(--font-Roboto-Regular);
+                                color: var(--Black);
+                                margin: 0px 0px 4px;
+                                padding: 0px;
+                            }
+                            &.pro-img-sec {
+                                width: 20%;
+                                max-width: 20%;
+                                min-width: 20%;
+                            }
+                            &.pro-nm-quantity-sec {
+                                width: calc(100% - 20% - 20%);
+                                min-width: calc(100% - 20% - 20%);
+                                max-width: calc(100% - 20% - 20%);
+                                padding: 0px 10px;
+                                h6 {
+                                    text-align: left;
+                                }
+                            }
+                            &.pro-del-price-sec {
+                                width: 20%;
+                                max-width: 20%;
+                                min-width: 20%;
+                                position: relative;
+                                h6 {
+                                    text-align: right;
+                                }
+                                ion-button {
+                                    --padding-start: 0px;
+                                    --padding-end: 0px;
+                                    margin: 0px;
+                                    width: 30px;
+                                    height: 30px;
+                                    line-height: 30px;
+                                    --border-radius: 50%;
+                                    position: absolute;
+                                    top: -30px;
+                                    right: -24px;
+                                    --background-activated: #D12031;
+                                    --background-focused: #D12031;
+                                    --background-hover: #D12031;
+                                    --color-activated: #ffffff;
+                                    --color-focused: #ffffff;
+                                    --color-hover: #ffffff;
+                                    ion-icon {
+                                        font-size: 22px;
+                                    }
+                                    &.view-btn {
+                                        position: unset;
+                                        width: 100%;
+                                        min-width: 100%;
+                                        max-width: 100%;
+                                        --border-radius: 30px;
+                                        border-radius: 30px;
+                                        font-size: 14px;
+                                    }
+                                }
+                            }
+                            ion-img {
+                                max-width: 100%;
+                                width: 100%;
+                                height: 65px;
+                                border-radius: 0px;
+                                object-fit: cover;
+                                object-position: center;
+                                margin: 0px auto;
+                                background-color: var(--White);
+                            }
+                            .pro-quantity-input {
+                                width: 100%;
+                                //margin: 8px auto 14px;
+                                margin: 8px auto 0px;
+                                display: flex;
+                                justify-content: flex-start;
+                                align-items: center;
+                                input {
+                                    &.minus, &.plus {
+                                        width: 28px;
+                                        height: 28px;
+                                        line-height: 28px;
+                                        font-size: 20px;
+                                        padding: 0px;
+                                        border-radius: 6px;
+                                        border: 1px solid #fff;
+                                        background-color: #000;
+                                        color: #fff;
+                                        font-family: var(--font-Roboto-Regular);
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                    }
+                                    &.input-number {
+                                        width: 60px;
+                                        height: 28px;
+                                        line-height: 28px;
+                                        font-size: 18px;
+                                        text-align: center;
+                                        padding: 4px;
+                                        margin: 0px 8px;
+                                        border-radius: 6px;
+                                        background-color: transparent;
+                                        border: 1px solid #000000;
+                                        color: #000;
+                                        font-family: var(--font-Roboto-Regular);
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                    }
+                                }
+                            }
+                            .pro-nm {
+                                width: 100%;
+                                text-align: left;
+                                margin: 0px 0px 10px;
+                                padding: 0px;
+                                // min-height: 45px;
+                                color: var(--Black);
+                                font-size: 12px;
+                                line-height: 15px;
+                                font-family: var(--font-Roboto-Medium);
+                                text-transform: uppercase;
+                            }
+                            .pro-price {
+                                width: 100%;
+                                text-align: right;
+                                margin: 0px 0px 14px;
+                                padding: 0px;
+                                font-size: 16px;
+                                line-height: 16px;
+                                // min-height: 32px;
+                                color: var(--Black);
+                                font-family: var(--font-Roboto-Medium);
+                                text-transform: uppercase;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

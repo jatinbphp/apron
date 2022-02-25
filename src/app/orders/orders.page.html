@@ -15,22 +15,26 @@
 </ion-header>
 
 <ion-content>
-  <p *ngIf="myOrders.length == 0" class="no-results">No orders found.</p>
-  <ion-grid *ngIf="myOrders.length > 0">
-    <ion-row *ngFor="let orders of myOrders; let i = index;">      
-      <ion-col size="9">
-        <ion-thumbnail>
-          <ion-img src="../../assets/images/apron-logo2.png"></ion-img>
-        </ion-thumbnail>
-        <div>         
-          <div><label>Order No.:</label> {{orders.id}}</div>
-          <div><label>Date:</label> {{orders.date_created | date: 'dd/MM/YYYY'}}<!--22/04/2021--></div>
-          <div><label>Status:</label> {{orders.status}}</div>
-        </div>       
-      </ion-col>
-      <ion-col size="3">         
-        {{orders.line_items.length}} items <br />R{{orders.total}} <br /><button (click)="OrderDetails(orders.id)">View All</button>    
-      </ion-col>
-    </ion-row>    
-  </ion-grid>
+  <div class="main-div">
+    <p *ngIf="myOrders.length == 0" class="no-results">No orders found.</p>
+    <ion-grid class="pro-horizontal-box-list" *ngIf="myOrders.length > 0">
+      <ion-row class="pro-horizontal-box" *ngFor="let orders of myOrders; let i = index;">
+        <ion-col class="pro-img-sec">
+            <!-- <ion-img src="../../assets/images/apron-logo2.png"></ion-img> -->
+            <ion-img src="../../assets/images/no-image.png"></ion-img>
+        </ion-col>
+        <ion-col class="pro-nm-quantity-sec">       
+            <h6><label>Order No.:</label> {{orders.id}}</h6>
+            <h6><label>Date:</label> {{orders.date_created | date: 'dd/MM/YYYY'}}<!--22/04/2021--></h6>
+            <h6><label>Status:</label> {{orders.status}}</h6>
+        </ion-col>
+        <ion-col class="pro-del-price-sec">
+          <h6>{{orders.line_items.length}} items</h6>
+          <h6>R{{orders.total}} </h6>
+          <ion-button class="view-btn" color="primary" (click)="OrderDetails(orders.id)">View All</ion-button>
+          <!-- <button (click)="OrderDetails(orders.id)">View All</button> -->
+        </ion-col>
+      </ion-row>    
+    </ion-grid>
+  </div>
 </ion-content>
