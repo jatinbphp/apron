@@ -79,6 +79,6 @@ export class OrdersPage implements OnInit
         special: JSON.stringify(this.queryString)
       }
     };
-    this.sendRequest.router.navigate(['/tabs/order-detail'], navigationExtras);
+    this.sendRequest.router.navigate(['/order-detail'], navigationExtras);
   }
 }
