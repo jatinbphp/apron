@@ -19,7 +19,7 @@ export class AppComponent
     { title: 'My Credits', url: '#', icon: 'card', is_function:0, show:0 },//[4]
     { title: 'Contact', url: '#', icon: 'call', is_function:0, show:1 },//[5]
     { title: 'Logout', url: '#', icon: 'log-out', is_function:1, show:0 },//[6]
-    //{ title: 'Login', url: '/login', icon: 'person', is_function:0, show:0 },//[7]
+    { title: 'Login', url: '/login', icon: 'person', is_function:0, show:1 },//[7]
     //{ title: 'Register', url: '/register', icon: 'person', is_function:0, show:0 },//[8]
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
@@ -34,12 +34,14 @@ export class AppComponent
         this.appPages[3]['show']=1;
         this.appPages[4]['show']=1;
         this.appPages[6]['show']=1;
+        this.appPages[7]['show']=0;
       }
       if(this.is_user_login == false)
       {
         this.appPages[3]['show']=0;
         this.appPages[4]['show']=0;
         this.appPages[6]['show']=0;
+        this.appPages[7]['show']=1;
       }
 		});//THIS OBSERVABLE IS USED TO CHECK USER LOGIN
     this.InitializeAPP();
@@ -55,12 +57,14 @@ export class AppComponent
       this.appPages[3]['show']=1;
       this.appPages[4]['show']=1;
       this.appPages[6]['show']=1;
+      this.appPages[7]['show']=0;
     }
     else
     {
       this.appPages[3]['show']=0;
       this.appPages[4]['show']=0;
       this.appPages[6]['show']=0;
+      this.appPages[7]['show']=1;
     }
   }
 
