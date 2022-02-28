@@ -75,10 +75,15 @@ export class SearchPage implements OnInit
   async searchAsAsked(form)
   {
     let search_text = (form.search_text) ? form.search_text : "";
-    let search_category = (form.search_category) ? form.search_category : 0;
+    let search_category = (form.search_category) ? form.search_category : "#";
     let split_search_category = search_category.split("#");
-    let searched_category_id = split_search_category[0];
-    let searched_category_nm = split_search_category[1];
+    let searched_category_id=0;
+    let searched_category_nm='';
+    if(split_search_category.length > 0)
+    {
+      searched_category_id = (split_search_category[0]) ? split_search_category[0] : 0;
+      searched_category_nm = (split_search_category[1]) ? split_search_category[1] : "";
+    }
     this.is_searched=true;
     this.searched_text=search_text;
     this.searched_category=searched_category_nm;
