@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { SendReceiveRequestsService } from '../providers/send-receive-requests.service';
+import { ActivatedRoute, Router, NavigationExtras } from "@angular/router";
+import { InAppBrowser, InAppBrowserOptions, InAppBrowserEvent, InAppBrowserObject } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 @Component({
   selector: 'app-checkout',
@@ -10,6 +12,7 @@ import { SendReceiveRequestsService } from '../providers/send-receive-requests.s
 })
 export class CheckoutPage implements OnInit 
 {
+  public queryString: any=[];
   public nonce:string='';
   public cartArray:any=[];
   public cartOrderArray:any=[];
@@ -76,7 +79,7 @@ export class CheckoutPage implements OnInit
     username: [''],
     password: [''],
   });
-  constructor(private fb: FormBuilder, private sendRequest: SendReceiveRequestsService, private loadingCtrl: LoadingController)
+  constructor(private fb: FormBuilder, private sendRequest: SendReceiveRequestsService, private loadingCtrl: LoadingController, private route: ActivatedRoute, private router: Router, private inAppBrowser: InAppBrowser)
   { }
 
   ngOnInit()
@@ -319,6 +322,8 @@ export class CheckoutPage implements OnInit
 
   async PlaceOrder(form)
   {
+    this.sendRequest.showMessage("We will proceed this in next update");
+    return false;
     //LOADER
 		const loading = await this.loadingCtrl.create({
 			spinner: null,
@@ -329,7 +334,7 @@ export class CheckoutPage implements OnInit
 		});
 		await loading.present();
     //LOADER
-    
+    let user_id = (this.userArray['user_id']) ? this.userArray['user_id'] : 0;
     let payment_method = (form.payment_method) ? form.payment_method : "";
     let is_alternative_product_allow = (form.is_alternative_product_allow) ? form.is_alternative_product_allow : "";
     let billing_order_notes = (form.billing_order_notes) ? form.billing_order_notes : "";
@@ -357,13 +362,13 @@ export class CheckoutPage implements OnInit
     {
       this.paymentMethodID="netcash";
       this.paymentMethod="Secure online Payments via Netcash";
-      this.paymentStatus="processing";
+      this.paymentStatus="pending";
     }
     if(payment_method == "transactionjunction")
     {
       this.paymentMethodID="transactionjunction";
       this.paymentMethod="Transaction Junction";
-      this.paymentStatus="processing";
+      this.paymentStatus="pending";
     }
 
     if(this.shippint_to_different_address == false)
@@ -436,7 +441,7 @@ export class CheckoutPage implements OnInit
     this.shippingObj.push(TempShippingObj);
     let orderObj = 
     {
-      customer_id:this.userArray['user_id'],
+      customer_id:user_id,
       payment_method:this.paymentMethodID,
       payment_method_title: this.paymentMethod,
       status:this.paymentStatus,
@@ -472,8 +477,8 @@ export class CheckoutPage implements OnInit
       this.objOrder=result;
       this.objOrderArray.push(this.objOrder);
       this.sendRequest.showMessage("Order placed successfully! <br />Please continue with PAY NOW.");
-      this.sendRequest.router.navigate(['/home']);
-      localStorage.removeItem('cart');//REMOVE CART BECAUSE IF USER WENT TO ANOTHER PAGE THEN, THE SAME ORDER WILL BE PLACED AGAIN WITH ALL NEW ORDER ID
+      //this.sendRequest.router.navigate(['/home']);
+      localStorage.removeItem('cart');//REMOVE CART BECAUSE IF USER WENT TO ANOTHER PAGE THEN, THE SAME ORDER WILL BE PLACED AGAIN WITH ALL NEW ORDER ID      
     },
     error => 
     {
@@ -525,6 +530,152 @@ export class CheckoutPage implements OnInit
     {
       loading.dismiss();//DISMISS LOADER
       console.log();
+    });
+  }
+
+  async PayWithNetCash()
+  {
+    this.sendRequest.showMessage("We will proceed this in next update");
+    return false;
+    //CUSTOM
+    let orderID = (this.objOrderArray[0]['id']) ? this.objOrderArray[0]['id'] : 0;
+    let orderKEY = (this.objOrderArray[0]['order_key']) ? this.objOrderArray[0]['order_key'] : "";
+    let customerID = (this.objOrderArray[0]['customer_id']) ? this.objOrderArray[0]['customer_id'] : 0;
+    let customerNM = this.objOrderArray[0]['billing']['first_name']+" "+this.objOrderArray[0]['billing']['last_name'];
+    let customerEM = (this.objOrderArray[0]['billing']['email']) ? this.objOrderArray[0]['billing']['email'] : "";
+    let orderTotal = (this.objOrderArray[0]['total']) ? this.objOrderArray[0]['total'] : 0;    
+    //CUSTOM
+    console.log("1",orderID);
+    console.log("2",orderKEY);
+    console.log("3",customerID);
+    console.log("4",customerNM);
+    console.log("5",customerEM);
+    console.log("6",orderTotal);
+    //WOOCOMMERCE::let targetUrl="https://apronbutchery.co.za/checkout/order-pay/"+orderID+"/?pay_for_order=true&key="+orderKEY+"&user_id="+customerID;
+    let targetUrl="https://apronbutchery.co.za/netcash_for_app/netcash.php?p2="+orderID+"&p3="+customerNM+"&p4="+orderTotal+"&m9="+customerEM+"&m5="+orderKEY+"&m6="+customerID;
+    const options : InAppBrowserOptions = 
+    {
+        location : 'no',//Or 'no' 
+        hidden : 'no', //Or  'yes'
+        clearcache : 'yes',
+        clearsessioncache : 'yes',
+        zoom : 'no',//Android only ,shows browser zoom controls 
+        hardwareback : 'no',
+        mediaPlaybackRequiresUserAction : 'no',
+        shouldPauseOnSuspend : 'no', //Android only 
+        closebuttoncaption : 'Close', //iOS only
+        disallowoverscroll : 'no', //iOS only 
+        toolbar : 'yes', //iOS only 
+        enableViewportScale : 'no', //iOS only 
+        allowInlineMediaPlayback : 'no',//iOS only 
+        presentationstyle : 'pagesheet',//iOS only 
+        fullscreen : 'yes',//Windows only    
+    };
+    //_self: Opens in the Cordova WebView if the URL is in the white list, otherwise it opens in the InAppBrowser
+    //_blank: Opens in the InAppBrowser
+    //_system: Opens in the system's web browser.
+    
+    let target = "_blank";//_blank
+    
+    //const browser = this.inAppBrowser.create(targetUrl,target,options);        
+    const browser = new InAppBrowserObject(targetUrl,target,options);
+    browser.on('loadstart').subscribe((event:InAppBrowserEvent)=>
+    {
+      console.log("Event",event);
+      let eventURL = event.url;
+      let splitURL = eventURL.split('?');
+      let actualURL = splitURL[0];
+      let queryString = splitURL[1];      
+
+      if(actualURL == "https://apronbutchery.co.za/netcash_for_app/netcash_success.php")
+      {
+        let splitQueryString = queryString.split('&');
+        let orderIDQueryString = splitQueryString[0];
+        let orderStatusQueryString = splitQueryString[1];
+        let transactionIDQueryString = splitQueryString[2];
+        
+        console.log("SPLIT-1",splitURL);
+        console.log("SPLIT-2",splitQueryString);
+        
+        let splitOrderId = orderIDQueryString.split("=");
+        let splitOrderStatus = orderStatusQueryString.split("=");
+        let splitTransactionId = transactionIDQueryString.split("=");
+        
+        let order_id = splitOrderId[1];
+        let order_status = splitOrderStatus[1];
+        let transaction_id = splitTransactionId[1];
+        
+        console.log("OID",order_id);
+        console.log("OST",order_status);
+        console.log("OTI",transaction_id);
+
+        setTimeout(function() 
+        {
+          browser.close();//This will close InAppBrowser Automatically when returnUrl Started                
+        }, 5000);
+
+        this.queryString = 
+        {
+          id:order_id,
+          status:order_status,
+          transID:transaction_id,
+        };
+
+        let navigationExtras: NavigationExtras = 
+        {
+          queryParams: 
+          {
+            special: JSON.stringify(this.queryString)
+          }
+        };
+        this.sendRequest.router.navigate(['/orders'], navigationExtras);
+      }
+      if(actualURL == "https://apronbutchery.co.za/netcash_for_app/netcash_cancle.php")
+      {
+        let splitQueryString = queryString.split('&');
+        let orderIDQueryString = splitQueryString[0];
+        let orderStatusQueryString = splitQueryString[1];
+        let transactionIDQueryString = splitQueryString[2];
+        
+        console.log("SPLIT-1",splitURL);
+        console.log("SPLIT-2",splitQueryString);
+        
+        let splitOrderId = orderIDQueryString.split("=");
+        let splitOrderStatus = orderStatusQueryString.split("=");
+        let splitTransactionId = transactionIDQueryString.split("=");
+        
+        let order_id = splitOrderId[1];
+        let order_status = splitOrderStatus[1];
+        let transaction_id = splitTransactionId[1];
+        
+        console.log("OID",order_id);
+        console.log("OST",order_status);
+        console.log("OTI",transaction_id);
+
+        setTimeout(function() 
+        {
+          browser.close();//This will close InAppBrowser Automatically when returnUrl Started                
+        }, 5000);
+
+        this.queryString = 
+        {
+          id:order_id,
+          status:order_status,
+          transID:transaction_id,
+        };
+
+        let navigationExtras: NavigationExtras = 
+        {
+          queryParams: 
+          {
+            special: JSON.stringify(this.queryString)
+          }
+        };
+        this.sendRequest.router.navigate(['/orders'], navigationExtras);
+      }      
+    },error => {
+      console.log("Error Browser",error);
+      console.log("Error Browser",JSON.stringify(error));
     });
   }
 }

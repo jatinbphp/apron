@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="main-div">
+  <div class="main-div" *ngIf="objOrderArray.length == 0">
     <p [innerHTML]="checkout_top_note"></p>
     <ion-accordion-group>
       <ion-accordion value="returning" toggle-icon="arrow-down-circle" *ngIf="resultUserData.length == 0">
@@ -171,5 +171,29 @@
       </ion-list>      
       <ion-button color="primary" type="submit" [disabled]="!checkoutForm.valid" *ngIf="objOrderArray.length == 0">PLACE ORDER</ion-button>      
     </form>
+  </div>
+  <div class="main-div" *ngIf="objOrderArray.length > 0">
+    <ion-grid >
+      <ion-row class="add-pro-item">      
+        <ion-col size="9" class="pro-info">
+          <ion-thumbnail>
+            <ion-img src="../../assets/images/apron-logo2.png"></ion-img>
+          </ion-thumbnail>
+          <div class="pro-info-in">         
+            <div><label>Order No.:</label> {{objOrderArray[0].id}}</div>
+            <div><label>Date:</label> {{objOrderArray[0].date_created | date: 'dd/MM/YYYY'}}<!--22/04/2021--></div>
+            <div><label>Status:</label> {{objOrderArray[0].status}}</div>
+          </div>       
+        </ion-col>
+        <ion-col size="3" class="price text-right">         
+          {{objOrderArray.length}} items <br />{{objOrderArray[0].currency_symbol}}{{objOrderArray[0].total}}       
+        </ion-col>
+      </ion-row>
+      <ion-row class="add-pro-item" >
+        <ion-col size="12">
+          <ion-button class="button" *ngIf="objOrderArray.length > 0" (click)="PayWithNetCash()">PAY NOW</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>

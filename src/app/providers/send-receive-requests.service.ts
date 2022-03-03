@@ -398,6 +398,26 @@ export class SendReceiveRequestsService
 		});
 	}
 
+	updateOrderStatusToPaid(orderID,data)
+	{
+		return new Promise((resolve, reject) => 
+		{
+			let headers = this.getHeaderOptions();
+			
+			let params = new HttpParams().set("consumer_key", this.consumer_key).set("consumer_secret", this.consumer_secret);
+			this.http.post(this.api_url + "wp-json/wc/v3/orders/"+orderID, data, { headers: headers, params: params }).subscribe((res: any) => 
+			{
+				resolve(res);
+			},
+	        err => 
+	        {
+				let errorMessage=this.getErrorMessage(err);
+				//this.showMessage(errorMessage);
+				reject(errorMessage);
+	        });
+		});
+	}
+
   	getErrorMessage(err)
 	{	
 		if(err.error == null)

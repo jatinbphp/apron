@@ -17,7 +17,7 @@ export class AppComponent
     { title: 'Search', url: '/search', icon: 'search', is_function:0, show:1 },//[2]
     { title: 'My Orders', url: '/orders', icon: 'bag', is_function:0, show:0 },//[3]
     { title: 'My Credits', url: '#', icon: 'card', is_function:0, show:0 },//[4]
-    { title: 'Contact', url: '#', icon: 'call', is_function:0, show:1 },//[5]
+    { title: 'Contact', url: '/contact', icon: 'call', is_function:0, show:1 },//[5]
     { title: 'Logout', url: '#', icon: 'log-out', is_function:1, show:0 },//[6]
     { title: 'Login', url: '/login', icon: 'person', is_function:0, show:1 },//[7]
     //{ title: 'Register', url: '/register', icon: 'person', is_function:0, show:0 },//[8]

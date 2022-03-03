@@ -1,22 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { SendReceiveRequestsService } from '../providers/send-receive-requests.service';
-import { NavigationExtras } from "@angular/router";
+import { ActivatedRoute, Router, NavigationExtras } from "@angular/router";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.page.html',
   styleUrls: ['./orders.page.scss'],
+  providers: [DatePipe]
 })
 
 export class OrdersPage implements OnInit 
 {
+  public orderID: Number=0;
+  public orderStatus: boolean=false;
+  public paymentTransactionID: string='';
+  public dateToday: any;
   public queryString: any=[];
+  public queryStringData: any=[];
+
   public userArray:any=[];
   public cartArray:any=[];
   public myOrders:any=[];
   public number_of_products_in_cart:number=0;//THIS OBSERVABLE IS USED TO SHOW QUANTITY ON HEADER
-  constructor(private sendRequest: SendReceiveRequestsService, private loadingCtrl: LoadingController)
+  constructor(private sendRequest: SendReceiveRequestsService, private loadingCtrl: LoadingController, private route: ActivatedRoute, private router: Router, private datepipe: DatePipe)
   { 
     this.sendRequest.getObservableWhenItemAddedToCart().subscribe((dataCart) => 
 		{
@@ -63,6 +71,40 @@ export class OrdersPage implements OnInit
         console.log();
       })
     }
+
+    //THIS PORTION IS USED TO UPDATE ORDER STATUS TO BE PAID FROM CHECKOUT.TS
+    this.route.queryParams.subscribe(params => 
+    {
+      if(params && params.special)
+      {
+        this.queryStringData = JSON.parse(params.special);        
+      }
+    });
+    this.dateToday = new Date().toISOString();
+		this.dateToday = this.datepipe.transform(this.dateToday, 'yyyy-MM-dd HH:mm:ss');
+    this.orderID=this.queryStringData['id'];
+    this.orderStatus=Boolean(this.queryStringData['status']);
+    this.paymentTransactionID=this.queryStringData['transID'];
+    if(this.orderStatus == true && this.orderID > 0)
+    {
+      let objStatus = 
+      {
+        "status": "processing",
+        //"payment_method_title":"Credit Card, Instant EFT and ZAPPER",
+        "date_paid":this.dateToday,
+        "transaction_id":this.paymentTransactionID
+      }
+      await this.sendRequest.updateOrderStatusToPaid(this.orderID,objStatus);
+    }
+    if(this.orderStatus == false && this.orderID > 0)
+    {
+      let objStatus = 
+      {
+        "status": "cancelled" 
+      }
+      await this.sendRequest.updateOrderStatusToPaid(this.orderID,objStatus);
+    }
+    //THIS PORTION IS USED TO UPDATE ORDER STATUS TO BE PAID FROM CHECKOUT.TS
   }
 
   OrderDetails(order_id)

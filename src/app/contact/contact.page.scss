@@ -1,0 +1,38 @@
+ion-content {
+    --background: transparent;
+    ion-grid{
+        ion-row{
+            ion-col{
+                ion-icon{
+                    color:#FB1F1F;
+                    width:50px;
+                    font-size:20px;
+                    &.pt-10{
+                        padding:10px 0 0 0;
+                    }
+                }
+                h4{
+                    text-align:left;
+                    color:#999999;
+                    font-family: var(--font-Roboto-Regular);
+                    font-size:25px;
+                    font-weight: 500;
+                }
+                &.text-general{
+                    font-family: var(--font-Roboto-Regular);
+                    color:#ffffff;
+                    padding:none;
+                    font-size: 16px;
+                    line-height: 22px;
+                }
+                &.text-danger{
+                    font-family: var(--font-Roboto-Regular);
+                    padding:10px 0 0 0;
+                    font-size: 16px;
+                    line-height: normal;
+                    color:#FB1F1F;
+                }
+            }
+        }
+    }
+}
