@@ -15,60 +15,65 @@
 </ion-header>
 
 <ion-content class="make-black">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="2"></ion-col>
-      <ion-col size="10">
-        <h4>THE APRON</h4>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="2">
-        <ion-icon name="location-outline"></ion-icon>
-      </ion-col>
-      <ion-col size="10" class="text-general">
-        1 Ridgeway Avenue,<br />
-        Shopping on Ridgeway, Shop 20,<br />
-        Midstream Ridge,<br />
-        Olifantsfontein, 1692        
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="2">
-        <ion-icon class="pt-10" name="call-outline"></ion-icon>
-      </ion-col>
-      <ion-col size="10" class="text-danger">
-        +2712 945 4057
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="2">
-        <ion-icon class="pt-10" name="mail-outline"></ion-icon>
-      </ion-col>
-      <ion-col size="10" class="text-danger">
-        online@apronbutchery.co.za
-      </ion-col>
-    </ion-row>
-    <!--<ion-row>
-      <ion-col size="2">
-        <ion-icon name="time-outline"></ion-icon>
-      </ion-col>
-      <ion-col size="10" class="text-general">
-        <strong>LOCKDOWN HOURS:</strong> Normal hours<br />
-        <strong>Mon-Fri:</strong> 07h30 – 20h00<br />
-        <strong>Saturday:</strong> 07h30 – 20h00<br />
-        <strong>Sunday:</strong> 07h30 – 20h00<br />
-        <strong>Public Holidays:</strong> 07h30 – 20h00<br />
-        <strong>Note:</strong> CLOSED CHRISTMAS DAY<br />
-      </ion-col>
-    </ion-row>-->
-    <ion-row>
-      <ion-col size="2">
-        <ion-icon class="pt-10" name="logo-facebook"></ion-icon>
-      </ion-col>
-      <ion-col size="10" class="text-danger" (click)="openActionRequested('https://www.facebook.com/Apron.ButcheryandDeli/')">
-        <strong>VISIT US ON FACEBOOK</strong>
-      </ion-col>
-    </ion-row>
-  </ion-grid>  
+  <div class="main-div">
+    <div class="title-main">
+      <h2>The Apron</h2>
+    </div>
+    <ion-grid>
+      <!-- <ion-row>
+        <ion-col size="2"></ion-col>
+        <ion-col size="10">
+          <h4>THE APRON</h4>
+        </ion-col>
+      </ion-row> -->
+      <ion-row>
+        <ion-col>
+          <ion-icon name="location-outline"></ion-icon>
+        </ion-col>
+        <ion-col>
+          <p>1 Ridgeway Avenue,<br />
+          Shopping on Ridgeway, Shop 20,<br />
+          Midstream Ridge,<br />
+          Olifantsfontein, 1692</p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="align-center">
+        <ion-col>
+          <ion-icon name="call-outline"></ion-icon>
+        </ion-col>
+        <ion-col>
+          <p>+2712 945 4057</p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="align-center">
+        <ion-col>
+          <ion-icon name="mail-outline"></ion-icon>
+        </ion-col>
+        <ion-col>
+          <p>online@apronbutchery.co.za</p>
+        </ion-col>
+      </ion-row>
+      <!--<ion-row>
+        <ion-col size="2">
+          <ion-icon name="time-outline"></ion-icon>
+        </ion-col>
+        <ion-col size="10" class="text-general">
+          <strong>LOCKDOWN HOURS:</strong> Normal hours<br />
+          <strong>Mon-Fri:</strong> 07h30 – 20h00<br />
+          <strong>Saturday:</strong> 07h30 – 20h00<br />
+          <strong>Sunday:</strong> 07h30 – 20h00<br />
+          <strong>Public Holidays:</strong> 07h30 – 20h00<br />
+          <strong>Note:</strong> CLOSED CHRISTMAS DAY<br />
+        </ion-col>
+      </ion-row>-->
+      <ion-row class="align-center">
+        <ion-col>
+          <ion-icon name="logo-facebook"></ion-icon>
+        </ion-col>
+        <ion-col (click)="openActionRequested('https://www.facebook.com/Apron.ButcheryandDeli/')">
+          <p><strong>VISIT US ON FACEBOOK</strong></p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
