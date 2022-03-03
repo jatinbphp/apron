@@ -89,6 +89,7 @@ export class CheckoutPage implements OnInit
 	{
     this.objOrder = [];
     this.objOrderArray = [];
+    this.objOrderArray.push({'id':'1234567890','date_created':'03/03/2022','status':'pending','currency_symbol':'ZAR','total':'2000.00'});
     this.objDeliveryLocationsArray = [];
     this.objAlternativesArray=[];
     this.objProvinceArray=[];
