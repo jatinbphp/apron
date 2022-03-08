@@ -19,7 +19,7 @@ ion-menu {
             justify-content: space-between;
             align-items: center;
             background: #ffffff;
-            padding: 10px 22px;
+            padding: calc(env(safe-area-inset-top) + 10px) 22px 10px;
             margin: 0px 0px 8px;
             img {
               &.logo-main {

@@ -51,7 +51,7 @@
                 <ion-col size="12" (click)="ProductDetail(product.id,product.name)">
                   <h3 class="pro-price" [innerHTML]="product.price_html"></h3>
                 </ion-col>
-                <ion-col size="12">
+                <ion-col size="12" class="last-btn">
                   <div class="out-of-stock" *ngIf="product.stock_status=='outofstock'">OUT OF STOCK</div>
                   <ion-button [disabled]="product.stock_status=='outofstock'" color="secondary" *ngIf="product.images.length > 0 && product.stock_status=='instock'" class="cart-icon-btn" (click)="UpdateCart(product.id,product.name,product.price,1,product.images[0].src)">
                     <!-- <ion-icon name="cart"></ion-icon> -->

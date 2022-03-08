@@ -146,7 +146,7 @@ app-cart, app-checkout, app-orders, app-order-detail, app-contact {
 ion-header {
     &.most-used-header {
         background: #fff;
-        padding: 16px 4px;
+        padding: calc(env(safe-area-inset-top) + 16px) 4px 16px;
         ion-toolbar {
             --border-width: 0px !important;
             --background: var(--White);
