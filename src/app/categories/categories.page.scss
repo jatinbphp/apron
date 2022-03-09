@@ -78,10 +78,11 @@ ion-content {
 								    min-height: -moz-fill-available;
 								    min-height: -ms-fill-available;
 								    min-height: -o-fill-available;
-								    height: -webkit-fill-available;
+								    /*height: -webkit-fill-available;
 								    height: -moz-fill-available;
 								    height: -ms-fill-available;
-								    height: -o-fill-available;
+								    height: -o-fill-available;*/
+								    height: auto;
 									margin-bottom: 26px;
 									padding: 10px 0px 0px;
 									ion-col {
@@ -96,7 +97,8 @@ ion-content {
 										.pro-nm {
 											width: calc(100% - 20px);
 											margin: 16px auto 10px;
-											min-height: 45px;
+											// min-height: 45px;
+											min-height: 60px;
 										}
 										.pro-price {
 											width: calc(100% - 20px);
@@ -105,6 +107,7 @@ ion-content {
 											@media(max-width:355px) {
 												font-size: 14px;
 												line-height: 14px;
+												min-height: 30px;
 											}
 										}
 										ion-button {
