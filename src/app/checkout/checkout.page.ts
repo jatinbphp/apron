@@ -322,8 +322,6 @@ export class CheckoutPage implements OnInit
 
   async PlaceOrder(form)
   {
-    this.sendRequest.showMessage("We will proceed this in next update");
-    return false;
     //LOADER
 		const loading = await this.loadingCtrl.create({
 			spinner: null,
@@ -489,8 +487,6 @@ export class CheckoutPage implements OnInit
 
   async applyCoupon(form)
   {
-    this.sendRequest.showMessage("We will proceed this in next update");
-    return false;
     //LOADER
 		const loading = await this.loadingCtrl.create({
 			spinner: null,
@@ -535,8 +531,6 @@ export class CheckoutPage implements OnInit
 
   async PayWithNetCash()
   {
-    this.sendRequest.showMessage("We will proceed this in next update");
-    return false;
     //CUSTOM
     let orderID = (this.objOrderArray[0]['id']) ? this.objOrderArray[0]['id'] : 0;
     let orderKEY = (this.objOrderArray[0]['order_key']) ? this.objOrderArray[0]['order_key'] : "";
@@ -555,21 +549,21 @@ export class CheckoutPage implements OnInit
     let targetUrl="https://apronbutchery.co.za/netcash_for_app/netcash.php?p2="+orderID+"&p3="+customerNM+"&p4="+orderTotal+"&m9="+customerEM+"&m5="+orderKEY+"&m6="+customerID;
     const options : InAppBrowserOptions = 
     {
-        location : 'no',//Or 'no' 
-        hidden : 'no', //Or  'yes'
-        clearcache : 'yes',
-        clearsessioncache : 'yes',
-        zoom : 'no',//Android only ,shows browser zoom controls 
-        hardwareback : 'no',
-        mediaPlaybackRequiresUserAction : 'no',
-        shouldPauseOnSuspend : 'no', //Android only 
-        closebuttoncaption : 'Close', //iOS only
-        disallowoverscroll : 'no', //iOS only 
-        toolbar : 'yes', //iOS only 
-        enableViewportScale : 'no', //iOS only 
-        allowInlineMediaPlayback : 'no',//iOS only 
-        presentationstyle : 'pagesheet',//iOS only 
-        fullscreen : 'yes',//Windows only    
+      location : 'yes',//Or 'no' 
+      hidden : 'no', //Or  'yes'
+      clearcache : 'yes',
+      clearsessioncache : 'yes',
+      zoom : 'yes',//Android only ,shows browser zoom controls 
+      hardwareback : 'yes',
+      mediaPlaybackRequiresUserAction : 'no',
+      shouldPauseOnSuspend : 'no', //Android only 
+      closebuttoncaption : 'Close', //iOS only
+      disallowoverscroll : 'no', //iOS only 
+      toolbar : 'yes', //iOS only 
+      enableViewportScale : 'no', //iOS only 
+      allowInlineMediaPlayback : 'no',//iOS only 
+      presentationstyle : 'pagesheet',//iOS only 
+      fullscreen : 'yes',//Windows only   
     };
     //_self: Opens in the Cordova WebView if the URL is in the white list, otherwise it opens in the InAppBrowser
     //_blank: Opens in the InAppBrowser
