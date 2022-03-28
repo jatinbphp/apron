@@ -474,7 +474,7 @@ export class CheckoutPage implements OnInit
       loading.dismiss();//DISMISS LOADER
       this.objOrder=result;
       this.objOrderArray.push(this.objOrder);
-      this.sendRequest.showMessage("Order placed successfully! <br />Please continue with PAY NOW.");
+      this.sendRequest.showMessage("To complete your order, please click on the PAY NOW button.");
       //this.sendRequest.router.navigate(['/home']);
       localStorage.removeItem('cart');//REMOVE CART BECAUSE IF USER WENT TO ANOTHER PAGE THEN, THE SAME ORDER WILL BE PLACED AGAIN WITH ALL NEW ORDER ID      
     },
