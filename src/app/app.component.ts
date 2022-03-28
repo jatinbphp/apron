@@ -32,7 +32,7 @@ export class AppComponent
       if(this.is_user_login == true)
       {
         this.appPages[3]['show']=1;
-        this.appPages[4]['show']=1;
+        this.appPages[4]['show']=0;
         this.appPages[6]['show']=1;
         this.appPages[7]['show']=0;
       }
@@ -55,7 +55,7 @@ export class AppComponent
     if(this.userArray['user_id'] > 0)
     {
       this.appPages[3]['show']=1;
-      this.appPages[4]['show']=1;
+      this.appPages[4]['show']=0;
       this.appPages[6]['show']=1;
       this.appPages[7]['show']=0;
     }
