@@ -22,7 +22,7 @@
             <form [formGroup]="loginForm" (ngSubmit)="makeMeLoggedin(loginForm.value)">
               <ion-list lines="none"> 
                 <ion-item no-line color="light">
-                  <ion-input type="email" placeholder="EMAIL ADDRESS" formControlName="username" pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"></ion-input>
+                  <ion-input type="email" placeholder="EMAIL ADDRESS" formControlName="username"></ion-input>
                 </ion-item>  
                 <ion-item no-line color="light">
                   <ion-input [type]="passwordType" placeholder="PASSWORD" formControlName="password"></ion-input>
