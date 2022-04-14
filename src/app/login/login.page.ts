@@ -21,6 +21,8 @@ export class LoginPage implements OnInit
 
 	public cartArray:any=[];
 	public resultData:any=[];
+	public nonce:string='';
+	public userCookies:any=[];
 
 	constructor(private fb: FormBuilder, private sendRequest: SendReceiveRequestsService, private loadingCtrl: LoadingController)
 	{ }
@@ -42,6 +44,37 @@ export class LoginPage implements OnInit
 
 	async makeMeLoggedin(form)
 	{
+		let data={
+			username:form.username, 
+			password:form.password
+		}
+		
+		//GENERATE COOKIE BEFORE LOGIN
+		await this.sendRequest.getNonce().then((response:any) => 
+		{
+			this.nonce=response.nonce;
+		  	console.log(response);
+		},error => 
+		{
+		  console.log(error);
+		});
+	
+		await this.sendRequest.generateUserCookies(this.nonce,data).then(resultCookie => 
+		{	
+		  this.userCookies = resultCookie;
+		  if(this.userCookies['status']=="ok")
+		  {
+			localStorage.setItem('userCookie',JSON.stringify(this.userCookies));
+		  }
+		  //console.log(this.userCookies);
+		},
+		error => 
+		{
+		  // loading.dismiss();//DISMISS LOADER
+		  console.log();
+		})
+		//GENERATE COOKIE BEFORE LOGIN
+
 		//LOADER
 		const loading = await this.loadingCtrl.create({
 			spinner: null,
@@ -51,10 +84,7 @@ export class LoginPage implements OnInit
 		});
 		await loading.present();
 		//LOADER
-		let data={
-			username:form.username, 
-			password:form.password
-		}
+		
 		this.sendRequest.makeMeLoggedin(data).then(result => 
 		{	
       		this.sendRequest.publishSomeDataWhenLogin({

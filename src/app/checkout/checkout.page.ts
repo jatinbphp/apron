@@ -37,6 +37,7 @@ export class CheckoutPage implements OnInit
   public objCoupanArray:any=[];
   public userTotalCredit:number = 0;
 
+  public resultDataSignup:any=[];
   public userArray:any=[]; 
   public resultData:any=[];
   public resultUserData:any=[];
@@ -322,6 +323,83 @@ export class CheckoutPage implements OnInit
 
   async PlaceOrder(form)
   {
+    if(this.userArray.length == 0)
+    { 
+      let username = (form.username) ? form.username : "";
+      let password = (form.password) ? form.password : "";
+      let billing_email_for_register = (form.billing_email) ? form.billing_email : "";
+
+      let dataLogin=
+      {
+        username:username, 
+        password:password
+      }
+      
+      await this.sendRequest.makeMeLoggedinWhileCheckout(dataLogin).then(result => 
+      {	
+        this.sendRequest.publishSomeDataWhenLogin({
+          is_user_login: true
+        });//THIS OBSERVABLE IS USED TO GET SCREEN LOAD FROM ION WILL ENTER
+        this.resultData=result;
+        console.log(this.resultData);
+        let objectUser=
+        {
+          user_id:this.resultData['data']['ID'],
+          display_name:this.resultData['data']['display_name'],
+          user_email:this.resultData['data']['user_email'],
+        }
+        localStorage.setItem('user',JSON.stringify(objectUser));        
+      },
+      async (error)=> 
+      {
+        console.log("No user error:",error);
+        //NO USER FOUND REGISTER THIS USER
+        await this.sendRequest.getNonce().then((response:any) => 
+        {	
+          this.nonce=response.nonce;
+          console.log("nonce",this.nonce);
+        },
+        error => 
+        {});//NONCE
+
+        let dataRegister=
+        {
+          username:username, 
+          user_pass:password,
+          email:billing_email_for_register,
+          display_name:username,
+        }
+        await this.sendRequest.registerWhileCheckout(dataRegister,this.nonce).then(result => 
+        {	
+          this.resultDataSignup=result;
+          if(this.resultDataSignup.status=="ok")
+          {
+            this.sendRequest.publishSomeDataWhenLogin({
+              is_user_login: true
+            });//THIS OBSERVABLE IS USED TO GET SCREEN LOAD FROM ION WILL ENTER
+            
+            let objectUser=
+            {
+              user_id:this.resultDataSignup.user_id,
+              display_name:username,
+              user_email:billing_email_for_register,
+            }
+            localStorage.setItem('user',JSON.stringify(objectUser));
+            console.log("Signup Result",this.resultDataSignup);
+            //USER SCUESSFULLY SIGNUP
+          }
+          if(this.resultDataSignup.status=="error")
+          {
+            this.sendRequest.showMessage(this.resultDataSignup.error);
+          }
+        },
+        error => 
+        {
+          console.log(error);
+        });//REGISTER USER
+      });
+    }//TILL THIS STAGE IF USER NOT LOGIN/REGISTER
+    
     //LOADER
 		const loading = await this.loadingCtrl.create({
 			spinner: null,
@@ -331,7 +409,10 @@ export class CheckoutPage implements OnInit
 			cssClass: 'custom-class custom-loading'
 		});
 		await loading.present();
+
     //LOADER
+    this.userArray = localStorage.getItem('user');
+    this.userArray = (this.userArray) ? JSON.parse(this.userArray) : [];
     let user_id = (this.userArray['user_id']) ? this.userArray['user_id'] : 0;
     let payment_method = (form.payment_method) ? form.payment_method : "";
     let is_alternative_product_allow = (form.is_alternative_product_allow) ? form.is_alternative_product_allow : "";
@@ -346,6 +427,7 @@ export class CheckoutPage implements OnInit
     let billing_zipcode = (form.billing_zipcode) ? String(form.billing_zipcode) : "";
     let billing_phone = (form.billing_phone) ? form.billing_phone : "";
     let billing_email = (form.billing_email) ? form.billing_email : "";
+    
     //SHIPPING DETAIL
     let shipping_first_name = (form.shipping_first_name) ? form.shipping_first_name : "";
     let shipping_last_name = (form.shipping_last_name) ? form.shipping_last_name : "";

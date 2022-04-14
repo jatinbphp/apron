@@ -254,6 +254,26 @@ export class SendReceiveRequestsService
 		});
 	}
 
+	registerWhileCheckout(data,nonce)
+	{	
+		return new Promise((resolve, reject) => 
+		{
+			let headers = this.getHeaderOptions();
+			
+			let params = new HttpParams().set("username",data.username).set("email", data.email).set("user_pass", data.cpassword).set("nonce", nonce).set("display_name", data.username); //Create new HttpParams
+			this.http.get(this.api_url + "api/user/register/", { headers: headers, params: params }).subscribe((res: any) => 
+			{
+				resolve(res);
+			},
+	        err => 
+	        {
+				let errorMessage=this.getErrorMessage(err);
+				//this.showMessage(errorMessage);
+				reject(errorMessage);
+	        });
+		});
+	}
+
 	makeMeLoggedin(option:any)
 	{	
 		return new Promise((resolve, reject) => 
@@ -280,6 +300,53 @@ export class SendReceiveRequestsService
 				reject(errorMessage);
 	        });
 		});
+	}
+
+	makeMeLoggedinWhileCheckout(option:any)
+	{	
+		return new Promise((resolve, reject) => 
+		{
+			let headers = this.getHeaderOptions();
+			let params = new HttpParams().set("username",option.username).set("password", option.password); //Create new HttpParams
+			this.http.get(this.api_url + "wp-json/apronbutchery-api-login/login", { headers: headers, params: params }).subscribe((res: any) => 
+			{
+				//console.log(res);
+				if(res.data==undefined) 
+				{
+					//this.showMessage(res.message);
+					reject(res);
+				} 
+				else 
+				{
+					resolve(res);
+				}
+			},
+	        err => 
+	        {
+				let errorMessage=this.getErrorMessage(err);
+				//this.showMessage(errorMessage);
+				reject(errorMessage);
+	        });
+		});
+	}
+
+	async generateUserCookies(nonce,data)
+	{	
+		return new Promise((resolve, reject) => 
+		{
+			let headers = this.getHeaderOptions();
+			let params = new HttpParams().set("nonce",nonce).set("username",data.username).set("password",data.password); //Create new HttpParams
+			this.http.post(this.api_url + "api/user/generate_auth_cookie", params, data ).subscribe((res: any) => 
+			{
+				resolve(res);
+			},
+	        err => 
+	        {
+				let errorMessage=this.getErrorMessage(err);
+				this.showMessage(errorMessage);
+				reject(errorMessage);
+	        });
+		});		
 	}
 
 	getCheckoutAlternatives()
