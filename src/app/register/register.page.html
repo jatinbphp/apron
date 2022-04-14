@@ -19,13 +19,13 @@
         </ion-item>
         <ion-item class="mt-12">
           <ion-router-link (click)="openActionRequested('https://apronbutchery.co.za/privacy-policy/')">I agree to the T's & C's</ion-router-link>
-          <ion-checkbox [(ngModel)]="accept_tems" slot="start" formControlName="accept_tems"></ion-checkbox>
+          <ion-checkbox (ionChange)="acceptTerms($event)" [(ngModel)]="accept_tems" slot="start" formControlName="accept_tems"></ion-checkbox>
         </ion-item>
         <ion-item lines="none" class="ion-text-center">
             <ion-router-link (click)="openActionRequested('https://apronbutchery.co.za/privacy-policy/')">Please review terms and conditions</ion-router-link>
         </ion-item>
       </ion-list>
-      <ion-button type="submit" color="primary" expand="block" [disabled]="(!registerForm.valid) || accept_tems==false">Register</ion-button>
+      <ion-button type="submit" color="primary" expand="block" [disabled]="(!registerForm.valid) || accept_tems != true">Register</ion-button>
     </form>
     <ion-item lines="none" class="link-item">
       <ion-router-link routerDirection="root" routerLink="/login"><strong>LOGIN</strong></ion-router-link>

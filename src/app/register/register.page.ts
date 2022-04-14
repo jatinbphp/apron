@@ -18,6 +18,7 @@ export class RegisterPage implements OnInit
 	public ConfirmPasswordIcon: string = 'eye-off';
 	public nonce:string='';
 	public resultDataSignup:any=[];
+	public accept_tems:boolean=false;
 
 	public registerForm = this.fb.group({
 		email: ['',  [Validators.required, Validators.pattern("^[a-zA-Z0-9._]+[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$")]],
@@ -105,6 +106,19 @@ export class RegisterPage implements OnInit
 		})		
 		/**/
 	}
+
+	acceptTerms(ev)
+  {
+    let haveStatus = ev.detail.checked;
+    if(haveStatus == true)
+    {
+      this.accept_tems = true;
+    }
+    else 
+    {
+      this.accept_tems = false;
+    }
+  }
 
 	openActionRequested(targetUrl)
 	{
