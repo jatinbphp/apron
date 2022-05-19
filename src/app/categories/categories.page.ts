@@ -20,6 +20,11 @@ export class CategoriesPage implements OnInit
   public sort_by:string='popularity';
   public sort_by_to_show:string='popularity';
   public order_by:string='desc';
+
+  public sort_by_35:string='id';
+  public sort_by_to_show_35:string='id';
+  public order_by_35:string='asc';
+
   public currentPage = 1;
   public totalNumberOfPages: number = 0;
 
@@ -94,6 +99,11 @@ export class CategoriesPage implements OnInit
     {
       id:this.category_id,
       page:this.currentPage 
+    }
+    if(this.category_id == 35)
+    {
+      this.sort_by=this.sort_by_35;
+      this.order_by=this.order_by_35;
     }
     await this.sendRequest.getProductFromCategory(dataCategoryID,this.sort_by,this.order_by).then(result => 
     {	

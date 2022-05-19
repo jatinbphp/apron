@@ -67,8 +67,9 @@ export class SendReceiveRequestsService
 	{
 		return new Promise((resolve, reject) => 
 		{	
-			let headers = this.getHeaderOptions();			
-			let params = new HttpParams().set("exclude",'15').set("per_page",'100').set("page", '1').set("parent", '0').set("hide_empty", 'true').set("consumer_key", this.consumer_key).set("consumer_secret", this.consumer_secret);
+			let headers = this.getHeaderOptions();		
+			//.set("exclude",'53,38,39,54,55,15')::exclude as same like website[BEFORE::ONLY 15 WAS EXCLUDED]	
+			let params = new HttpParams().set("exclude",'53,38,39,54,55,15').set("per_page",'100').set("page", '1').set("parent", '0').set("hide_empty", 'true').set("consumer_key", this.consumer_key).set("consumer_secret", this.consumer_secret);
 			this.http.get(this.api_url + "wp-json/wc/v3/products/categories", { headers: headers, params: params }).subscribe((res: any) => 
 			{
 				resolve(res);

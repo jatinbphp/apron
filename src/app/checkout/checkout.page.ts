@@ -27,6 +27,7 @@ export class CheckoutPage implements OnInit
   public shippingAmount:string='';
   public cart_total_with_delivery_area: any = '';
   public cart_total: any = '';
+  public order_amount_exclude_shipping_and_tax:any=0;
   public paymentMethodID:string ='';
   public paymentMethod:string ='';
   public paymentStatus:string = '';
@@ -99,6 +100,7 @@ export class CheckoutPage implements OnInit
     this.paymentMethod = '';
     this.paymentStatus = '';
     this.userArray=[];
+    this.order_amount_exclude_shipping_and_tax=0;
     
     this.userArray = localStorage.getItem('user');
     this.userArray = (this.userArray) ? JSON.parse(this.userArray) : [];
@@ -556,6 +558,15 @@ export class CheckoutPage implements OnInit
       loading.dismiss();//DISMISS LOADER
       this.objOrder=result;
       this.objOrderArray.push(this.objOrder);
+      //JUST TO SHOW NUMBERS ON ORDER SUMMERY BEFOR PAY
+      let orderShipping = (this.objOrderArray[0]['shipping_total']) ? Number(this.objOrderArray[0]['shipping_total']) : 0;
+      let orderTax = (this.objOrderArray[0]['total_tax']) ? Number(this.objOrderArray[0]['total_tax']) : 0;
+      let overallOrderTotal = (this.objOrderArray[0]['total']) ? Number(this.objOrderArray[0]['total']) : 0;
+      let totalShippingAndTaxes = orderShipping + orderTax;
+      let TotalDeductingTaxAndShipping = overallOrderTotal - totalShippingAndTaxes;
+      this.order_amount_exclude_shipping_and_tax=TotalDeductingTaxAndShipping.toFixed(2);
+      console.log("Order Array",this.objOrderArray);
+      //JUST TO SHOW NUMBERS ON ORDER SUMMERY BEFOR PAY
       this.sendRequest.showMessage("To complete your order, please click on the PAY NOW button.");
       //this.sendRequest.router.navigate(['/home']);
       localStorage.removeItem('cart');//REMOVE CART BECAUSE IF USER WENT TO ANOTHER PAGE THEN, THE SAME ORDER WILL BE PLACED AGAIN WITH ALL NEW ORDER ID      

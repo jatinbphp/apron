@@ -181,13 +181,16 @@
           </ion-thumbnail>
           <div class="pro-info-in">         
             <p><label>Order No.:</label> {{objOrderArray[0].id}}</p>
+            <p><label>Item subtotal.:</label> {{objOrderArray[0].currency_symbol}}{{order_amount_exclude_shipping_and_tax}}</p>
+            <p><label>Shipping.:</label> {{objOrderArray[0].currency_symbol}}{{objOrderArray[0].shipping_total}}</p>
+            <p *ngIf="objOrderArray[0].prices_include_tax == true"><label>Vat.:</label> {{objOrderArray[0].currency_symbol}}{{objOrderArray[0].total_tax}}</p>
             <p><label>Date:</label> {{objOrderArray[0].date_created | date: 'dd/MM/YYYY'}}<!--22/04/2021--></p>
             <p><label>Status:</label> {{objOrderArray[0].status}}</p>
           </div>  
         </ion-col>
         <ion-col size="3" class="price">         
-          <p>{{objOrderArray.length}} items</p>
-          <p>{{objOrderArray[0].currency_symbol}}{{objOrderArray[0].total}}</p>
+          <p>{{objOrderArray.length}} items <br />{{objOrderArray[0].currency_symbol}}{{objOrderArray[0].total}}</p>
+          <!--<p>{{objOrderArray[0].currency_symbol}}{{objOrderArray[0].total}}</p>-->
         </ion-col>
       </ion-row>
       <ion-row class="btn-sec">
