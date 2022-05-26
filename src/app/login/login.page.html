@@ -1,6 +1,8 @@
 <ion-content>
   <div class="main-div">
-    <img class="logo-main" src="../../assets/images/no-image.png">
+    <div class="logo-bck-shape">
+      <img class="logo-main" src="../../assets/images/no-image.png">
+    </div>
     <form [formGroup]="loginForm" (ngSubmit)="makeMeLoggedin(loginForm.value)">
       <ion-list lines="none"> 
         <ion-item no-line color="light">
